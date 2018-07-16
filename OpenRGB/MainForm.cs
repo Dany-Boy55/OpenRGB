@@ -12,6 +12,8 @@ namespace OpenRGB
 {
     public partial class MainForm : Form
     {
+
+
         public MainForm()
         {
             InitializeComponent();
@@ -34,6 +36,14 @@ namespace OpenRGB
 
                     break;
             }
+        }
+
+        private void colorSelectToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form selectColorForm = new Form();
+            ColorSelector select = new ColorSelector();
+            selectColorForm.Controls.Add(select);
+            selectColorForm.Show();
         }
     }
 }
