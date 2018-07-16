@@ -8,13 +8,11 @@ using System.Threading.Tasks;
 
 namespace OpenRGB
 {
+    /// <summary>
+    /// Simple control for displaying/storing a color (like a textbox for color)
+    /// </summary>
     class ColorBox : UserControl
     {
-        protected override void OnClick(EventArgs e)
-        {
-            base.OnClick(e);
-        }
-
         #region Constructors
         public ColorBox()
         {

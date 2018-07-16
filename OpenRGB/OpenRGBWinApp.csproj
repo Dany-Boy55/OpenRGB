@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ArduinoController.cs" />
     <Compile Include="ColorBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -57,6 +58,7 @@
     <Compile Include="ColorWheel.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="IController.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
