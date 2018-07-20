@@ -45,7 +45,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ArduinoController.cs" />
+    <Compile Include="AdvancedColors.cs" />
+    <Compile Include="HardwareRGB.cs" />
     <Compile Include="ColorBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -58,7 +59,7 @@
     <Compile Include="ColorWheel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="IController.cs" />
+    <Compile Include="IHardwarePort.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -91,7 +92,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
