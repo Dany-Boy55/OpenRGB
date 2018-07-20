@@ -24,6 +24,7 @@ namespace OpenRGB
     /// </summary>
     public class GenericController
     {
+        
         private string name;
         private int id;
         private ControllerType type;
@@ -38,7 +39,7 @@ namespace OpenRGB
             throw new NotImplementedException();
         }
 
-        public void Identify()
+        public string Identify()
         {
             throw new NotImplementedException();
         }

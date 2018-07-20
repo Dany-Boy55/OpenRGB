@@ -58,8 +58,7 @@ namespace OpenRGB
             float chroma = Saturation * Value;
             float huePrime = Hue / 60;
             float X = chroma * (1 - Math.Abs((huePrime % 2) - 1));
-
-            throw new NotImplementedException();
+            return Color.FromArgb(0, 0, 0);
         }
 
         /// <summary>
