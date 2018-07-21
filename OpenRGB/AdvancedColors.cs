@@ -31,7 +31,13 @@ namespace OpenRGB
         /// <returns></returns>
         public static Color RotateHue(Color color, int degrees)
         {
-            throw new NotImplementedException();
+            int Hue =(int)color.GetHue();
+            float Value = color.GetBrightness();
+            float Saturation = color.GetSaturation();
+            Hue = Hue + degrees;
+            Color newcolor = new Color();
+            newcolor = FromHSV(Hue, Value, Saturation);
+            return newcolor;
         }
 
         /// <summary>
@@ -56,10 +62,51 @@ namespace OpenRGB
         static Color FromHSV(int Hue, float Saturation, float Value)
         {
             float chroma = Saturation * Value;
-            float huePrime = Hue / 60;
+            float huePrime = Hue / 60F;
             float X = chroma * (1 - Math.Abs((huePrime % 2) - 1));
-
-            throw new NotImplementedException();
+            float m = Value - chroma;
+            float[] matrix = new float[3];
+            if (Hue>=0 & Hue < 60)
+            {
+                matrix[0] = chroma;
+                matrix[1] = X;
+                matrix[2] = 0;
+            }
+            else if (Hue>=60 & Hue < 120)
+            {
+                matrix[0] = X;
+                matrix[1] = chroma;
+                matrix[2] = 0;
+            }
+            else if (Hue >= 120 & Hue < 180)
+            {
+                matrix[0] = 0;
+                matrix[1] = chroma;
+                matrix[2] = X;
+            }
+            else if (Hue >= 180 & Hue < 240)
+            {
+                matrix[0] = 0;
+                matrix[1] = X;
+                matrix[2] = chroma;
+            }
+            else if (Hue >= 240 & Hue < 300)
+            {
+                matrix[0] = X;
+                matrix[1] = 0;
+                matrix[2] = chroma;
+            }
+            else if (Hue >= 300 & Hue < 360)
+            {
+                matrix[0] = chroma;
+                matrix[1] = 0;
+                matrix[2] = X;
+            }
+            else
+            {
+                Console.WriteLine("Not a valid Hue (Must be between 0 and 360 degrees)");
+            }
+            return Color.FromArgb(ClampTo8Bit((matrix[0]+m)*255), ClampTo8Bit((matrix[1] + m) * 255), ClampTo8Bit((matrix[2] + m) * 255));
         }
 
         /// <summary>
@@ -84,7 +131,7 @@ namespace OpenRGB
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        private int ClampTo8Bit(float input)
+        public static int ClampTo8Bit(float input)
         {
             int output;
             if (input > 255)
@@ -92,7 +139,7 @@ namespace OpenRGB
             else if (input < 0)
                 output = 0;
             else
-                output = (int) input;
+                output = (int)Math.Round(input);
             return output;
         }
 
