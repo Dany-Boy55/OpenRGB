@@ -46,6 +46,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdvancedColors.cs" />
+    <Compile Include="AsyncSerialPort.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="HardwareRGB.cs" />
     <Compile Include="ColorBox.cs">
       <SubType>UserControl</SubType>
