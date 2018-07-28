@@ -49,6 +49,12 @@
     <Compile Include="AsyncSerialPort.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="deviceBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="deviceBox.Designer.cs">
+      <DependentUpon>deviceBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="HardwareRGB.cs" />
     <Compile Include="ColorBox.cs">
       <SubType>UserControl</SubType>
@@ -73,6 +79,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="ColorSelector.resx">
       <DependentUpon>ColorSelector.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="deviceBox.resx">
+      <DependentUpon>deviceBox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

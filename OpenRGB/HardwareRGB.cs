@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.IO.Ports;
 using System.Collections.Generic;
 using System.Drawing;
@@ -19,7 +20,16 @@ namespace OpenRGB
         Simple,
         Addresseable,
         SimpleAndAdresseable,
-        Matix,
+        Matrix,
+    }
+
+    public enum Effect
+    {
+        Off,
+        SolidColor,
+        ColorChase1,
+        ColorChase2,
+        ColorRain,
     }
 
     public class RGBHardwareException : Exception
@@ -63,7 +73,8 @@ namespace OpenRGB
             if (!PortNameValid(serialPort.PortName))
                 throw new RGBHardwareException();
             port = (AsyncSerialPort) serialPort;
-            Identify();
+            
+            //Identify();
         }
 
         /// <summary>
@@ -78,7 +89,7 @@ namespace OpenRGB
             name = "Empty";
             id = 0;
             type = ControllerType.Empty;
-            Identify();
+            //Identify();
         }
 
         /// <summary>
@@ -129,24 +140,43 @@ namespace OpenRGB
             throw new NotImplementedException();
         }
 
-        public void WriteColor(Color color)
+        public void WriteColor(Color color, int colorNumber)
         {
-            throw new NotImplementedException();
+            byte[] dataOut = new byte[7];
+            dataOut[0] = 0x06;
+            dataOut[1] = 0x00;
+            dataOut[2] = 0x01;
+            dataOut[3] = (byte)colorNumber;
+            dataOut[4] = color.B;
+            dataOut[5] = color.B;
+            dataOut[6] = color.B;
+            Task.Run(() => port.Write(dataOut, 0, 7));
+        }
+        
+        public void WriteEffect(Effect eff, bool state)
+        {
+
         }
 
-        public void WriteColor(Color[] colors)
+        /// <summary>
+        /// Sends a lighting effect to a hardware device
+        /// </summary>
+        /// <param name="eff"></param>
+        /// <param name="state"></param>
+        /// <param name="arguments"></param>
+        public void WriteEffect(Effect eff, bool state, int[] arguments)
         {
-            throw new NotImplementedException();
-        }
-
-        public void WriteColor(int colorNumber, Color color)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void WriteEffect()
-        {
-            throw new NotImplementedException();
+            int length = 3 + arguments.Length;
+            byte[] dataOut = new byte[length];
+            dataOut[0] = (byte)length;  //packet length without this byte
+            dataOut[1] = 0x00;  // CRC not implemented yet
+            dataOut[2] = (byte)eff;  // effect
+            dataOut[3] = (byte)(state ? 0x00 : 0x01); // state of the effect (on / off) = (1 or 0)
+            for (int i = 0; i < arguments.Length; i++)
+            {
+                dataOut[i + 4] = (byte)arguments[i];
+            }
+            Task.Run(() => port.Write(dataOut, 0, length + 1));
         }
 
         /// <summary>

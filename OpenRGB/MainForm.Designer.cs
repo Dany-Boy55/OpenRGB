@@ -28,71 +28,78 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.colorSelectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuStrip1.SuspendLayout();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
+            this.Main_tabControl = new System.Windows.Forms.TabControl();
+            this.Start_tabPage = new System.Windows.Forms.TabPage();
+            this.Devices_tabPage = new System.Windows.Forms.TabPage();
+            this.Settings_tabPage1 = new System.Windows.Forms.TabPage();
+            this.Main_tabControl.SuspendLayout();
             this.SuspendLayout();
             // 
-            // menuStrip1
+            // Main_tabControl
             // 
-            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem,
-            this.toolsToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(212, 24);
-            this.menuStrip1.TabIndex = 0;
-            this.menuStrip1.Text = "menuStrip1";
+            this.Main_tabControl.Alignment = System.Windows.Forms.TabAlignment.Left;
+            this.Main_tabControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Main_tabControl.Controls.Add(this.Start_tabPage);
+            this.Main_tabControl.Controls.Add(this.Devices_tabPage);
+            this.Main_tabControl.Controls.Add(this.Settings_tabPage1);
+            this.Main_tabControl.HotTrack = true;
+            this.Main_tabControl.Location = new System.Drawing.Point(12, 12);
+            this.Main_tabControl.Multiline = true;
+            this.Main_tabControl.Name = "Main_tabControl";
+            this.Main_tabControl.SelectedIndex = 0;
+            this.Main_tabControl.Size = new System.Drawing.Size(1052, 588);
+            this.Main_tabControl.TabIndex = 1;
             // 
-            // fileToolStripMenuItem
+            // Start_tabPage
             // 
-            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
-            this.fileToolStripMenuItem.Text = "File";
+            this.Start_tabPage.Location = new System.Drawing.Point(28, 4);
+            this.Start_tabPage.Name = "Start_tabPage";
+            this.Start_tabPage.Padding = new System.Windows.Forms.Padding(3);
+            this.Start_tabPage.Size = new System.Drawing.Size(1020, 580);
+            this.Start_tabPage.TabIndex = 0;
+            this.Start_tabPage.Text = "Start";
+            this.Start_tabPage.UseVisualStyleBackColor = true;
             // 
-            // toolsToolStripMenuItem
+            // Devices_tabPage
             // 
-            this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.colorSelectToolStripMenuItem});
-            this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
-            this.toolsToolStripMenuItem.Text = "Tools";
+            this.Devices_tabPage.Location = new System.Drawing.Point(28, 4);
+            this.Devices_tabPage.Name = "Devices_tabPage";
+            this.Devices_tabPage.Size = new System.Drawing.Size(1020, 580);
+            this.Devices_tabPage.TabIndex = 1;
+            this.Devices_tabPage.Text = "Devices";
+            this.Devices_tabPage.UseVisualStyleBackColor = true;
             // 
-            // colorSelectToolStripMenuItem
+            // Settings_tabPage1
             // 
-            this.colorSelectToolStripMenuItem.Name = "colorSelectToolStripMenuItem";
-            this.colorSelectToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.colorSelectToolStripMenuItem.Text = "Color Select";
-            this.colorSelectToolStripMenuItem.Click += new System.EventHandler(this.colorSelectToolStripMenuItem_Click);
+            this.Settings_tabPage1.Location = new System.Drawing.Point(28, 4);
+            this.Settings_tabPage1.Name = "Settings_tabPage1";
+            this.Settings_tabPage1.Size = new System.Drawing.Size(1020, 580);
+            this.Settings_tabPage1.TabIndex = 2;
+            this.Settings_tabPage1.Text = "Settings";
+            this.Settings_tabPage1.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(212, 206);
-            this.Controls.Add(this.menuStrip1);
-            this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.ClientSize = new System.Drawing.Size(1076, 612);
+            this.Controls.Add(this.Main_tabControl);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.Text = "Open RGB";
-            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.MainForm_KeyPress);
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
+            this.Main_tabControl.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem colorSelectToolStripMenuItem;
+        private System.Windows.Forms.TabControl Main_tabControl;
+        private System.Windows.Forms.TabPage Start_tabPage;
+        private System.Windows.Forms.TabPage Devices_tabPage;
+        private System.Windows.Forms.TabPage Settings_tabPage1;
     }
 }
 

@@ -19,6 +19,13 @@ namespace OpenRGB
         /// </summary>
         public event EventHandler<SelectedColorChangedEventArgs> SelectedColorChanged;
 
+        private string GetHexColor()
+        {
+            char[] output = new char[6];
+            
+            return "FF FF FF";
+        }
+
         /// <summary>
         /// Internally called when the user selects a new color, triggers SelectedColorChanged event
         /// </summary>
@@ -38,7 +45,7 @@ namespace OpenRGB
             red = (int)red_numericUpDown.Value;
             selectedColor = Color.FromArgb(red, green, blue);
             //hexColor[0] = '0'; 
-            selected_colorBox.BackColor = selectedColor;
+            selected_colorBox.ForeColor = selectedColor;
             OnSelectedColorChange(new SelectedColorChangedEventArgs(selectedColor));
         }
 
@@ -46,7 +53,7 @@ namespace OpenRGB
         {
             green = (int)green_numericUpDown.Value;
             selectedColor = Color.FromArgb(red, green, blue);
-            selected_colorBox.BackColor = selectedColor;
+            selected_colorBox.ForeColor = selectedColor;
             OnSelectedColorChange(new SelectedColorChangedEventArgs(selectedColor));
         }
 
@@ -54,7 +61,7 @@ namespace OpenRGB
         {
             blue = (int)blue_numericUpDown.Value;
             selectedColor = Color.FromArgb(red, green, blue);
-            selected_colorBox.BackColor = selectedColor;
+            selected_colorBox.ForeColor = selectedColor;
             OnSelectedColorChange(new SelectedColorChangedEventArgs(selectedColor));
         }
     }

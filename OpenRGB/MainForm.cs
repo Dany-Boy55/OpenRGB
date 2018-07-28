@@ -12,38 +12,23 @@ namespace OpenRGB
 {
     public partial class MainForm : Form
     {
-
-
+        private ColorSelector selector;
         public MainForm()
         {
             InitializeComponent();
-        }
-
-        /// <summary>
-        /// Called when the user presses a keyboard key (used for quick access commands)
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void MainForm_KeyPress(object sender, KeyPressEventArgs e)
-        {
-
-            switch (e.KeyChar)
-            {
-                case (char)Keys.Enter:
-
-                    break;
-                default:
-
-                    break;
-            }
+            selector = new ColorSelector();
+            selector.SelectedColor = Color.Aqua;
+            Form selectform = new Form();
+            selectform.FormBorderStyle = FormBorderStyle.FixedToolWindow;
+            selectform.Icon = this.Icon;
+            selectform.Controls.Add(selector);
+            selectform.Show();
         }
 
         private void colorSelectToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form selectColorForm = new Form();
-            ColorSelector select = new ColorSelector();
-            selectColorForm.Controls.Add(select);
-            selectColorForm.Show();
+            ColorDialog colorDialog = new ColorDialog();
+            colorDialog.ShowDialog();
         }
     }
 }
