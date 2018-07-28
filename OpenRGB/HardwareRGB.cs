@@ -144,7 +144,7 @@ namespace OpenRGB
         {
             byte[] dataOut = new byte[7];
             dataOut[0] = 0x06;
-            dataOut[1] = 0x00;
+            dataOut[1] = 0x56;
             dataOut[2] = 0x01;
             dataOut[3] = (byte)colorNumber;
             dataOut[4] = color.B;
