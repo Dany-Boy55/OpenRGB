@@ -12,6 +12,86 @@ namespace OpenRGB
     /// </summary>
     public abstract class AdvancedColors
     {
+        private static Dictionary<int, char> HEXInt = new Dictionary<int, char>()
+        {
+            [0] = '0',
+            [1] = '1',
+            [2] = '2',
+            [3] = '3',
+            [4] = '4',
+            [5] = '5',
+            [6] = '6',
+            [7] = '7',
+            [8] = '8',
+            [9] = '9',
+            [10] = 'A',
+            [11] = 'B',
+            [12] = 'C',
+            [13] = 'D',
+            [14] = 'E',
+            [15] = 'F',
+        };
+
+        private static Dictionary<char, int> HEXChar = new Dictionary<char, int>()
+        {
+            ['0'] = 0,
+            ['1'] = 1,
+            ['2'] = 2,
+            ['3'] = 3,
+            ['4'] = 4,
+            ['5'] = 5,
+            ['6'] = 6,
+            ['7'] = 7,
+            ['8'] = 8,
+            ['9'] = 9,
+            ['A'] = 10,
+            ['B'] = 11,
+            ['C'] = 12,
+            ['D'] = 13,
+            ['E'] = 14,
+            ['F'] = 15,
+        };
+
+        /// <summary>
+        /// Represents a color structure in hexadecimal form
+        /// </summary>
+        /// <param name="color"> Color to be prased as hex</param>
+        /// <returns></returns>
+        public static string ColorToHex(Color color)
+        {
+            char[] output = new char[6];
+            // Use a dictionary to convert the numeric values into hexadecimal characters
+            output[0] = HEXInt[color.R / 16];
+            output[1] = HEXInt[color.R % 16];
+            output[2] = HEXInt[color.G / 16];
+            output[3] = HEXInt[color.G % 16];
+            output[4] = HEXInt[color.B / 16];
+            output[5] = HEXInt[color.B % 16];
+            return new string(output);
+        }
+
+        /// <summary>
+        /// Converts a string in hexadecimal form into a color struct
+        /// </summary>
+        /// <param name="hexcolor"> hexadecimal representation of an 8 bit color</param>
+        /// <returns></returns>
+        public static Color HexToColor(string hexcolor)
+        {
+            if (hexcolor.Length != 6)
+                throw new ArgumentException("Hexadecimal color must contain 6 characters");
+            else
+            {
+                hexcolor = hexcolor.ToUpper();
+                int red = HEXChar[hexcolor[0]] * 16;
+                red += HEXChar[hexcolor[1]];
+                int green = HEXChar[hexcolor[2]] * 16;
+                green += HEXChar[hexcolor[3]];
+                int blue = HEXChar[hexcolor[4]] * 16;
+                blue += HEXChar[hexcolor[5]];
+                return Color.FromArgb(red, green, blue);
+            }
+        }
+
         /// <summary>
         /// Transforms a color by rotating its hue in the HSV space
         /// </summary>

@@ -36,9 +36,8 @@ namespace OpenRGB
     {
         public RGBHardwareException()
         {
-
+            
         }
-        public override IDictionary Data => base.Data;
     }
 
     /// <summary>
@@ -72,7 +71,7 @@ namespace OpenRGB
         {
             if (!PortNameValid(serialPort.PortName))
                 throw new RGBHardwareException();
-            port = (AsyncSerialPort) serialPort;
+            this.port = (AsyncSerialPort) serialPort;
             
             //Identify();
         }
@@ -85,10 +84,10 @@ namespace OpenRGB
         {
             if (!PortNameValid(portName))
                 throw new RGBHardwareException();
-            port = new AsyncSerialPort(portName, 19200);
-            name = "Empty";
-            id = 0;
-            type = ControllerType.Empty;
+            this.port = new AsyncSerialPort(portName, 19200);
+            this.name = "Empty";
+            this.id = 0;
+            this.type = ControllerType.Empty;
             //Identify();
         }
 

@@ -13,6 +13,7 @@ namespace OpenRGB
     public partial class MainForm : Form
     {
         private ColorSelector selector;
+
         public MainForm()
         {
             InitializeComponent();
@@ -27,6 +28,7 @@ namespace OpenRGB
 
         private void colorSelectToolStripMenuItem_Click(object sender, EventArgs e)
         {
+
             ColorDialog colorDialog = new ColorDialog();
             colorDialog.ShowDialog();
         }

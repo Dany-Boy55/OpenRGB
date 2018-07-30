@@ -17,14 +17,7 @@ namespace OpenRGB
         /// <summary>
         /// Custom event raised when the user selects a new color
         /// </summary>
-        public event EventHandler<SelectedColorChangedEventArgs> SelectedColorChanged;
-
-        private string GetHexColor()
-        {
-            char[] output = new char[6];
-            
-            return "FF FF FF";
-        }
+        public event EventHandler<SelectedColorChangedEventArgs> SelectedColorChanged;        
 
         /// <summary>
         /// Internally called when the user selects a new color, triggers SelectedColorChanged event
@@ -32,37 +25,61 @@ namespace OpenRGB
         /// <param name="e">SelectedColorChangedEventArgs to pass along a Color object</param>
         protected virtual void OnSelectedColorChange(SelectedColorChangedEventArgs e)
         {
+            this.selectedColor = Color.FromArgb(red, green, blue);
+            this.selected_colorBox.ForeColor = this.selectedColor;
+            this.hexColor = AdvancedColors.ColorToHex(this.SelectedColor);
+            this.Hex_textBox.Text = this.hexColor;
             SelectedColorChanged?.Invoke(this, e);
         }
 
+        /// <summary>
+        /// Constructor for the object
+        /// </summary>
         public ColorSelector()
         {
             InitializeComponent();
         }        
 
+        /// <summary>
+        /// Called when the user changes the value of the numeric box
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void red_numericUpDown_ValueChanged(object sender, EventArgs e)
         {
-            red = (int)red_numericUpDown.Value;
-            selectedColor = Color.FromArgb(red, green, blue);
-            //hexColor[0] = '0'; 
-            selected_colorBox.ForeColor = selectedColor;
-            OnSelectedColorChange(new SelectedColorChangedEventArgs(selectedColor));
+            this.red = (int)this.red_numericUpDown.Value;
+            OnSelectedColorChange(new SelectedColorChangedEventArgs(this.selectedColor));
         }
 
+        private void Hex_textBox_TextChanged(object sender, EventArgs e)
+        {
+            if(this.Hex_textBox.Text.Length == 6)
+            {
+                this.selectedColor = AdvancedColors.HexToColor(this.Hex_textBox.Text);
+                OnSelectedColorChange(new SelectedColorChangedEventArgs(this.selectedColor));
+            }
+        }
+
+        /// <summary>
+        /// Called when the user changes the value of the numeric box
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void green_numericUpDown_ValueChanged(object sender, EventArgs e)
         {
-            green = (int)green_numericUpDown.Value;
-            selectedColor = Color.FromArgb(red, green, blue);
-            selected_colorBox.ForeColor = selectedColor;
-            OnSelectedColorChange(new SelectedColorChangedEventArgs(selectedColor));
+            this.green = (int)this.green_numericUpDown.Value;
+            OnSelectedColorChange(new SelectedColorChangedEventArgs(this.selectedColor));
         }
 
+        /// <summary>
+        /// Called when the user changes the value of the numeric box
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void blue_numericUpDown_ValueChanged(object sender, EventArgs e)
         {
-            blue = (int)blue_numericUpDown.Value;
-            selectedColor = Color.FromArgb(red, green, blue);
-            selected_colorBox.ForeColor = selectedColor;
-            OnSelectedColorChange(new SelectedColorChangedEventArgs(selectedColor));
+            this.blue = (int)this.blue_numericUpDown.Value;
+            OnSelectedColorChange(new SelectedColorChangedEventArgs(this.selectedColor));
         }
     }
 
