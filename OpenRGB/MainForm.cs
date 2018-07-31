@@ -1,7 +1,7 @@
 ﻿using System;
 using OpenRGBDevices;
 using System.Threading;
-using LogitechLedCs;
+using LogitechLEDSDK;
 using System.Windows.Forms;
 
 namespace OpenRGB
@@ -12,23 +12,23 @@ namespace OpenRGB
         public MainForm()
         {
             InitializeComponent();
-            LogitechGSDK.LogiLedInit();
+            LogitechGAPI.LogiLedInit();
         }
 
         private void deviceBox1_MouseClick(object sender, MouseEventArgs e)
         {
             this.label1.Text = "Configure a new device";
-            LogitechGSDK.LogiLedSaveCurrentLighting();
+            LogitechGAPI.LogiLedSaveCurrentLighting();
             Thread.Sleep(200);
             int red = 0, green = 100, blue = 100;
             Thread.Sleep(200);
-            LogitechGSDK.LogiLedFlashLighting(red, green, blue, 5000, 100);            ;
-            LogitechGSDK.LogiLedRestoreLighting();
+            LogitechGAPI.LogiLedFlashLighting(red, green, blue, 5000, 100);            ;
+            LogitechGAPI.LogiLedRestoreLighting();
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            LogitechGSDK.LogiLedShutdown();
+            LogitechGAPI.LogiLedShutdown();
         }
     }
 }

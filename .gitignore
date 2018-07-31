@@ -1,3 +1,4 @@
 .vs
 OpenRGB/bin
 OpenRGB/obj
+OpenRGB/lib/LogitechLedEnginesWrapper.dll

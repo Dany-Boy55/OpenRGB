@@ -3,7 +3,7 @@ using System.Collections;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace LedCSharp
+namespace LogitechLEDSDK
 {
     public enum keyboardNames
     {
@@ -132,7 +132,7 @@ namespace LedCSharp
         Headset = 0x8
     }
     
-    public class LogitechGSDK
+    public abstract class LogitechGAPI
     {
         //LED SDK
         private const int LOGI_DEVICETYPE_MONOCHROME_ORD = 0;

@@ -49,7 +49,6 @@
             this.Size = new System.Drawing.Size(100, 100);
             this.MouseEnter += new System.EventHandler(this.deviceBox_MouseEnter);
             this.MouseLeave += new System.EventHandler(this.deviceBox_MouseLeave);
-            this.BackColor = DefaultBackColor;
             this.ResumeLayout(false);
 
         }

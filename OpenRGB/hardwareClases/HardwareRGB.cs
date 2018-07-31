@@ -1,5 +1,5 @@
 ﻿using System;
-using LogitechLedCs;
+using LogitechLEDSDK;
 using System.IO;
 using System.IO.Ports;
 using System.Drawing;
@@ -33,36 +33,23 @@ namespace OpenRGBDevices
             
         }
     }
-
-    public class GenericHardwareDevice
-    {
-        private ControllerType type;
-
-        protected ControllerType Type { get => type; }
-
-        public GenericHardwareDevice(ControllerType initialType)
-        {
-            this.type = initialType;
-        }
-    }
+    
 
     /// <summary>
     /// Provides methods and properties common serial based communication
     /// </summary>
-    public class SerialController : GenericHardwareDevice
+    public class SerialController
     {
         /// <summary>
         /// Describes the different types of RGB controllers availeable
         /// </summary>
         
-
         private enum Commands
         {
             Color = 0x00,
             Off = 0x01,
             SolidColor = 0x02,
-            ColorChase1 =0x03,
-            
+            ColorChase1 =0x03,            
         }
 
         public enum Effect
@@ -74,7 +61,7 @@ namespace OpenRGBDevices
             ColorRain,
         }
 
-        #region internal fields
+        #region private fields
         private SerialPort port;
         private string name;
         private int id;
@@ -234,60 +221,5 @@ namespace OpenRGBDevices
         }        
     }
 
-    public class LogitechMouse
-    {
-        private LogiColor mainColor;
-
-        /// <summary>
-        /// Describes a color with chanels from 0 to 100 instead of 0 to 255
-        /// </summary>
-        private struct LogiColor
-        {
-            private int red;
-            private int green;
-            private int blue;
-
-            /// <summary>
-            /// Initialize a logitech formated color form a System.Drawing.Color struct
-            /// </summary>
-            /// <param name="color"></param>
-            public LogiColor(Color color)
-            {
-                this.red =(int)(color.R / 2.55);
-                this.green = (int)(color.G / 2.55);
-                this.blue = (int)(color.B / 2.55);
-            }
-
-            public int Red { get => red; set => red = value; }
-            public int Green { get => green; set => green = value; }
-            public int Blue { get => blue; set => blue = value; }
-
-            /// <summary>
-            /// Convert the current instance of a logitech color into a System.Drawing.Color struct
-            /// </summary>
-            /// <returns></returns>
-            public Color GetNormalColor()
-            {
-                int _red, _green, _blue;
-                _red = (int)(this.red * 2.55);
-                _green = (int)(this.green * 2.55);
-                _blue = (int)(this.blue * 2.55);
-                return Color.FromArgb(_red, _green, _blue);
-            }
-        }
-
-        public LogitechMouse()
-        {
-            LogitechGSDK.LogiLedInit();
-            LogitechGSDK.LogiLedSetTargetDevice(LogitechGSDK.LOGI_DEVICETYPE_RGB);
-        }
-
-        public Color MainColor { get => mainColor.GetNormalColor(); set => mainColor = new LogiColor(value); }
-
-        public void writeEffect(Effect effect)
-        {
-            LogitechGSDK.LogiLedSaveCurrentLighting();
-            LogitechGSDK.LogiLedSetLighting(mainColor.Red, mainColor.Green, mainColor.Blue);
-        }
-    }
+    
 }

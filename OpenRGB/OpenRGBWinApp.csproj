@@ -58,23 +58,26 @@
     <Compile Include="colorForm.Designer.cs">
       <DependentUpon>colorForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="deviceBox.cs">
+    <Compile Include="customControls\deviceBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="deviceBox.Designer.cs">
+    <Compile Include="customControls\deviceBox.Designer.cs">
       <DependentUpon>deviceBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="HardwareRGB.cs" />
-    <Compile Include="ColorBox.cs">
+    <Compile Include="hardwareClases\GenericDevice.cs" />
+    <Compile Include="hardwareClases\HardwareRGB.cs" />
+    <Compile Include="customControls\ColorBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ColorSelector.cs">
+    <Compile Include="customControls\ColorSelector.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ColorSelector.Designer.cs">
+    <Compile Include="customControls\ColorSelector.Designer.cs">
       <DependentUpon>ColorSelector.cs</DependentUpon>
     </Compile>
-    <Compile Include="LogitechGSDK.cs" />
+    <Compile Include="hardwareClases\IHardwareDevice.cs" />
+    <Compile Include="hardwareClases\LogitechDevices.cs" />
+    <Compile Include="lib\LogitechGSDK.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -86,10 +89,10 @@
     <EmbeddedResource Include="colorForm.resx">
       <DependentUpon>colorForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ColorSelector.resx">
+    <EmbeddedResource Include="customControls\ColorSelector.resx">
       <DependentUpon>ColorSelector.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="deviceBox.resx">
+    <EmbeddedResource Include="customControls\deviceBox.resx">
       <DependentUpon>deviceBox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
@@ -118,5 +121,13 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="icons\orgb.ico" />
+    <Content Include="icons\plus.png" />
+    <Content Include="lib\LogitechLedEnginesWrapper.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
