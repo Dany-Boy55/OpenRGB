@@ -11,26 +11,6 @@ using System.ComponentModel;
 
 namespace OpenRGB
 {
-    /// <summary>
-    /// Describes the different types of RGB controllers availeable
-    /// </summary>
-    public enum ControllerType
-    {
-        Empty,
-        Simple,
-        Addresseable,
-        SimpleAndAdresseable,
-        Matrix,
-    }
-
-    public enum Effect
-    {
-        Off,
-        SolidColor,
-        ColorChase1,
-        ColorChase2,
-        ColorRain,
-    }
 
     public class RGBHardwareException : Exception
     {
@@ -40,11 +20,37 @@ namespace OpenRGB
         }
     }
 
+    public class GenericHardware
+    {
+
+    }
+
     /// <summary>
     /// Provides methods and properties common serial based communication
     /// </summary>
-    public class GenericSerialController
+    public class SerialController : GenericHardware
     {
+        /// <summary>
+        /// Describes the different types of RGB controllers availeable
+        /// </summary>
+        public enum ControllerType
+        {
+            Empty,
+            Simple,
+            Addresseable,
+            SimpleAndAdresseable,
+            Matrix,
+        }
+
+        public enum Effect
+        {
+            Off,
+            SolidColor,
+            ColorChase1,
+            ColorChase2,
+            ColorRain,
+        }
+
         #region internal fields
         private AsyncSerialPort port;
         private string name;
@@ -67,7 +73,7 @@ namespace OpenRGB
         /// Constructor for the class
         /// </summary>
         /// <param name="serialPort"></param>
-        public GenericSerialController(SerialPort serialPort)
+        public SerialController(SerialPort serialPort)
         {
             if (!PortNameValid(serialPort.PortName))
                 throw new RGBHardwareException();
@@ -80,7 +86,7 @@ namespace OpenRGB
         /// Constructor for the class
         /// </summary>
         /// <param name="portName"> </param>
-        public GenericSerialController(string portName)
+        public SerialController(string portName)
         {
             if (!PortNameValid(portName))
                 throw new RGBHardwareException();

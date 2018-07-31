@@ -14,21 +14,19 @@ namespace OpenRGB
     /// </summary>
     class ColorBox : UserControl
     {
-        protected override void OnPaint(PaintEventArgs e)
+        protected override void OnPaintBackground(PaintEventArgs e)
         {
             Graphics g = e.Graphics;
-            g.FillRectangle(new SolidBrush(Color.DarkGray), new Rectangle(this.Location, this.Size));
-            g.FillRectangle(new SolidBrush(this.ForeColor), new Rectangle(5, 5, this.Width - 5, this.Height - 5));
+            g.FillRectangle(new SolidBrush(this.BackColor), new Rectangle(new Point(0,0), this.Size));
+            g.FillRectangle(new SolidBrush(this.ForeColor), new Rectangle(5, 5, this.Width - 10, this.Height - 10));
             //base.OnPaint(e);
         }
         
-
         #region Constructors
         public ColorBox()
         {
-            this.BackColor = Color.DarkGray;
             this.ForeColor = Color.White;
-            this.Margin = new Padding(7);
+            this.Margin = new Padding(8);
         }
         #endregion
     }
