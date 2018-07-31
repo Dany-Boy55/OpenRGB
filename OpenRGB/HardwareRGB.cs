@@ -1,16 +1,30 @@
 ﻿using System;
+using LogitechLedCs;
 using System.IO;
 using System.IO.Ports;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.Collections;
-using System.ComponentModel;
 
-namespace OpenRGB
+namespace OpenRGBDevices
 {
+    public enum ControllerType
+    {
+        Empty,
+        Simple,
+        Addresseable,
+        SimpleAndAdresseable,
+        Matrix,
+        LogitechMouse,
+        LogitechKeyboard,
+        CorsairMouse,
+        CorsairKeyboard,
+    }
+
+    public enum Effect
+    {
+        SolidColor,
+        Flash,
+    }
 
     public class RGBHardwareException : Exception
     {
@@ -22,7 +36,14 @@ namespace OpenRGB
 
     public class GenericHardwareDevice
     {
+        private ControllerType type;
 
+        protected ControllerType Type { get => type; }
+
+        public GenericHardwareDevice(ControllerType initialType)
+        {
+            this.type = initialType;
+        }
     }
 
     /// <summary>
@@ -33,14 +54,7 @@ namespace OpenRGB
         /// <summary>
         /// Describes the different types of RGB controllers availeable
         /// </summary>
-        public enum ControllerType
-        {
-            Empty,
-            Simple,
-            Addresseable,
-            SimpleAndAdresseable,
-            Matrix,
-        }
+        
 
         private enum Commands
         {
@@ -76,7 +90,6 @@ namespace OpenRGB
         #endregion
 
         public event EventHandler<EventArgs> DeviceRemoved;
-        public event EventHandler<EventArgs> InformationReceived;
 
         /// <summary>
         /// Constructor for the class
@@ -139,16 +152,7 @@ namespace OpenRGB
         /// <returns></returns>
         public void Identify()
         {
-            if (port.IsOpen)
-            {
-                try
-                {
-
-                }catch (Exception e)
-                {
-
-                }
-            }
+            throw new NotImplementedException();
         }
 
         public void ChangeName()
@@ -191,10 +195,6 @@ namespace OpenRGB
                 dataOut[0] = 0x06;
                 dataOut[1] = 0x00;
                 dataOut[2] = 0x01;
-                dataOut[3] = (byte)colorNumber;
-                dataOut[4] = color.B;
-                dataOut[5] = color.B;
-                dataOut[6] = color.B;
                 Task.Run(() => port.Write(dataOut, 0, 7));
             }
             catch (Exception)
@@ -232,5 +232,62 @@ namespace OpenRGB
         {
             return name;
         }        
+    }
+
+    public class LogitechMouse
+    {
+        private LogiColor mainColor;
+
+        /// <summary>
+        /// Describes a color with chanels from 0 to 100 instead of 0 to 255
+        /// </summary>
+        private struct LogiColor
+        {
+            private int red;
+            private int green;
+            private int blue;
+
+            /// <summary>
+            /// Initialize a logitech formated color form a System.Drawing.Color struct
+            /// </summary>
+            /// <param name="color"></param>
+            public LogiColor(Color color)
+            {
+                this.red =(int)(color.R / 2.55);
+                this.green = (int)(color.G / 2.55);
+                this.blue = (int)(color.B / 2.55);
+            }
+
+            public int Red { get => red; set => red = value; }
+            public int Green { get => green; set => green = value; }
+            public int Blue { get => blue; set => blue = value; }
+
+            /// <summary>
+            /// Convert the current instance of a logitech color into a System.Drawing.Color struct
+            /// </summary>
+            /// <returns></returns>
+            public Color GetNormalColor()
+            {
+                int _red, _green, _blue;
+                _red = (int)(this.red * 2.55);
+                _green = (int)(this.green * 2.55);
+                _blue = (int)(this.blue * 2.55);
+                return Color.FromArgb(_red, _green, _blue);
+            }
+        }
+
+        public LogitechMouse()
+        {
+            LogitechGSDK.LogiLedInit();
+            LogitechGSDK.LogiLedSetTargetDevice(LogitechGSDK.LOGI_DEVICETYPE_RGB);
+        }
+
+        public Color MainColor { get => mainColor.GetNormalColor(); set => mainColor = new LogiColor(value); }
+
+        public void writeEffect(Effect effect)
+        {
+            LogitechGSDK.LogiLedSaveCurrentLighting();
+            LogitechGSDK.LogiLedSetLighting(mainColor.Red, mainColor.Green, mainColor.Blue);
+        }
     }
 }

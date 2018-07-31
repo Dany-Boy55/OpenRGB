@@ -1,36 +1,34 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using OpenRGBDevices;
+using System.Threading;
+using LogitechLedCs;
 using System.Windows.Forms;
 
 namespace OpenRGB
 {
     public partial class MainForm : Form
     {
-        private ColorSelector selector;
-
+        
         public MainForm()
         {
             InitializeComponent();
-            selector = new ColorSelector();
-            selector.SelectedColor = Color.Aqua;
-            Form selectform = new Form();
-            selectform.FormBorderStyle = FormBorderStyle.FixedToolWindow;
-            selectform.Icon = this.Icon;
-            selectform.Controls.Add(selector);
-            selectform.Show();
+            LogitechGSDK.LogiLedInit();
         }
 
-        private void colorSelectToolStripMenuItem_Click(object sender, EventArgs e)
+        private void deviceBox1_MouseClick(object sender, MouseEventArgs e)
         {
+            this.label1.Text = "Configure a new device";
+            LogitechGSDK.LogiLedSaveCurrentLighting();
+            Thread.Sleep(200);
+            int red = 0, green = 100, blue = 100;
+            Thread.Sleep(200);
+            LogitechGSDK.LogiLedFlashLighting(red, green, blue, 5000, 100);            ;
+            LogitechGSDK.LogiLedRestoreLighting();
+        }
 
-            ColorDialog colorDialog = new ColorDialog();
-            colorDialog.ShowDialog();
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            LogitechGSDK.LogiLedShutdown();
         }
     }
 }

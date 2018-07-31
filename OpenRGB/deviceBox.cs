@@ -13,37 +13,35 @@ namespace OpenRGB
 {
     public partial class deviceBox : UserControl
     {
+        private string portName;
+
         private Color highlightColor = Color.Aqua;
+
+        public string PortName { get => portName; set => portName = value; }
 
         protected override void OnPaintBackground(PaintEventArgs e)
         {
+            e.Graphics.Clear(this.BackColor);
+        }
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
             e.Graphics.DrawImage(this.BackgroundImage, new Rectangle(0, 0, this.Width, this.Height));
-        }
-
-        protected override void OnMouseEnter(EventArgs e)
-        {
-            Debug.WriteLine("mouse enter!");
-            this.BackColor = highlightColor;
-            this.Refresh();
-            base.OnMouseEnter(e);
-        }
-
-        protected override void OnMouseLeave(EventArgs e)
-        {
-            Debug.WriteLine("mouse leave!");
-            this.BackColor = this.Parent.BackColor;
-            this.Refresh();
-            base.OnMouseLeave(e);
         }
 
         public deviceBox()
         {
             InitializeComponent();
         }
-
-        private void deviceBox_Click(object sender, EventArgs e)
+        
+        private void deviceBox_MouseEnter(object sender, EventArgs e)
         {
+            this.BackColor = highlightColor;
+        }
 
+        private void deviceBox_MouseLeave(object sender, EventArgs e)
+        {
+            this.BackColor = DefaultBackColor;
         }
     }
 }

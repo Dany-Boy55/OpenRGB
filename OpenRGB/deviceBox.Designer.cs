@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(deviceBox));
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
@@ -37,19 +36,20 @@
             // 
             this.toolTip1.AutoPopDelay = 10000;
             this.toolTip1.InitialDelay = 500;
-            this.toolTip1.IsBalloon = true;
+            this.toolTip1.IsBalloon = false;
             this.toolTip1.ReshowDelay = 100;
-            this.toolTip1.ToolTipTitle = "Hey!";
+            this.toolTip1.SetToolTip(this, "Add a new RGB device");
             // 
             // deviceBox
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
-            this.Margin = new System.Windows.Forms.Padding(7);
+            this.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.Name = "deviceBox";
-            this.Size = new System.Drawing.Size(200, 200);
-            this.Click += new System.EventHandler(this.deviceBox_Click);
+            this.Size = new System.Drawing.Size(100, 100);
+            this.MouseEnter += new System.EventHandler(this.deviceBox_MouseEnter);
+            this.MouseLeave += new System.EventHandler(this.deviceBox_MouseLeave);
+            this.BackColor = DefaultBackColor;
             this.ResumeLayout(false);
 
         }
