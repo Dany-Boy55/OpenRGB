@@ -272,5 +272,4 @@ namespace LogitechLedCs
         [DllImport("LogitechLedEnginesWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern void LogiLedShutdown();
     }
-
 }
