@@ -20,7 +20,7 @@ namespace OpenRGB
         }
     }
 
-    public class GenericHardware
+    public class GenericHardwareDevice
     {
 
     }
@@ -28,7 +28,7 @@ namespace OpenRGB
     /// <summary>
     /// Provides methods and properties common serial based communication
     /// </summary>
-    public class SerialController : GenericHardware
+    public class SerialController : GenericHardwareDevice
     {
         /// <summary>
         /// Describes the different types of RGB controllers availeable
@@ -42,6 +42,15 @@ namespace OpenRGB
             Matrix,
         }
 
+        private enum Commands
+        {
+            Color = 0x00,
+            Off = 0x01,
+            SolidColor = 0x02,
+            ColorChase1 =0x03,
+            
+        }
+
         public enum Effect
         {
             Off,
@@ -52,7 +61,7 @@ namespace OpenRGB
         }
 
         #region internal fields
-        private AsyncSerialPort port;
+        private SerialPort port;
         private string name;
         private int id;
         private ControllerType type;
@@ -77,9 +86,10 @@ namespace OpenRGB
         {
             if (!PortNameValid(serialPort.PortName))
                 throw new RGBHardwareException();
-            this.port = (AsyncSerialPort) serialPort;
-            
-            //Identify();
+            this.port = serialPort;
+            this.name = null;
+            this.id = 0;
+            this.type = ControllerType.Empty;
         }
 
         /// <summary>
@@ -90,11 +100,21 @@ namespace OpenRGB
         {
             if (!PortNameValid(portName))
                 throw new RGBHardwareException();
-            this.port = new AsyncSerialPort(portName, 19200);
-            this.name = "Empty";
+            this.port.ErrorReceived += Port_ErrorReceived;
+            this.port = new SerialPort(portName, 19200);
+            this.name = null;
             this.id = 0;
             this.type = ControllerType.Empty;
-            //Identify();
+        }
+
+        protected virtual void OnPortError(EventArgs e)
+        {
+            DeviceRemoved?.Invoke(this, e);
+        }
+
+        private void Port_ErrorReceived(object sender, SerialErrorReceivedEventArgs e)
+        {
+            OnPortError(new EventArgs());
         }
 
         /// <summary>
@@ -117,9 +137,18 @@ namespace OpenRGB
         /// 
         /// </summary>
         /// <returns></returns>
-        public async Task Identify()
+        public void Identify()
         {
-            throw new NotImplementedException();
+            if (port.IsOpen)
+            {
+                try
+                {
+
+                }catch (Exception e)
+                {
+
+                }
+            }
         }
 
         public void ChangeName()
@@ -130,37 +159,48 @@ namespace OpenRGB
                 throw new NotImplementedException();
         }
 
-        public Color ReadColor(Color color)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Color ReadColor(Color[] colors)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Color ReadColor(int colorNumber, Color color)
-        {
-            throw new NotImplementedException();
-        }
-
         public void WriteColor(Color color, int colorNumber)
         {
-            byte[] dataOut = new byte[7];
-            dataOut[0] = 0x06;
-            dataOut[1] = 0x56;
-            dataOut[2] = 0x01;
-            dataOut[3] = (byte)colorNumber;
-            dataOut[4] = color.B;
-            dataOut[5] = color.B;
-            dataOut[6] = color.B;
-            Task.Run(() => port.Write(dataOut, 0, 7));
+            try
+            {
+                if (!port.IsOpen)
+                    port.Open();
+                byte[] dataOut = new byte[7];
+                dataOut[0] = 0x06;
+                dataOut[1] = 0x56;
+                dataOut[2] = 0x01;
+                dataOut[3] = (byte)colorNumber;
+                dataOut[4] = color.B;
+                dataOut[5] = color.B;
+                dataOut[6] = color.B;
+                Task.Run(() => port.Write(dataOut, 0, 7));
+            }
+            catch (Exception)
+            {
+                OnPortError(new EventArgs());
+            }
         }
         
         public void WriteEffect(Effect eff, bool state)
         {
-
+            try
+            {
+                if (!port.IsOpen)
+                    port.Open();
+                byte[] dataOut = new byte[7];
+                dataOut[0] = 0x06;
+                dataOut[1] = 0x00;
+                dataOut[2] = 0x01;
+                dataOut[3] = (byte)colorNumber;
+                dataOut[4] = color.B;
+                dataOut[5] = color.B;
+                dataOut[6] = color.B;
+                Task.Run(() => port.Write(dataOut, 0, 7));
+            }
+            catch (Exception)
+            {
+                OnPortError(new EventArgs());
+            }
         }
 
         /// <summary>

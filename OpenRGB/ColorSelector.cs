@@ -62,6 +62,8 @@ namespace OpenRGB
         private void red_numericUpDown_ValueChanged(object sender, EventArgs e)
         {
             this.red = (int)this.red_numericUpDown.Value;
+            this.red_trackBar.Value = red;
+            this.selectedColor = Color.FromArgb(red, green, blue);
             this.hexColor = AdvancedColors.ColorToHex(this.SelectedColor);
             this.Hex_textBox.Text = this.hexColor;
             OnSelectedColorChange(new SelectedColorChangedEventArgs(this.selectedColor));
@@ -75,6 +77,8 @@ namespace OpenRGB
         private void green_numericUpDown_ValueChanged(object sender, EventArgs e)
         {
             this.green = (int)this.green_numericUpDown.Value;
+            this.green_trackBar.Value = green;
+            this.selectedColor = Color.FromArgb(red, green, blue);
             this.hexColor = AdvancedColors.ColorToHex(this.SelectedColor);
             this.Hex_textBox.Text = this.hexColor;
             OnSelectedColorChange(new SelectedColorChangedEventArgs(this.selectedColor));
@@ -88,6 +92,53 @@ namespace OpenRGB
         private void blue_numericUpDown_ValueChanged(object sender, EventArgs e)
         {
             this.blue = (int)this.blue_numericUpDown.Value;
+            this.blue_trackBar.Value = blue;
+            this.selectedColor = Color.FromArgb(red, green, blue);
+            this.hexColor = AdvancedColors.ColorToHex(this.SelectedColor);
+            this.Hex_textBox.Text = this.hexColor;
+            OnSelectedColorChange(new SelectedColorChangedEventArgs(this.selectedColor));
+        }
+
+        /// <summary>
+        /// Called when the user uses the green trackbar
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void green_trackBar_Scroll(object sender, EventArgs e)
+        {
+            this.green = green_trackBar.Value;
+            this.selectedColor = Color.FromArgb(green, green, blue);
+            this.green_numericUpDown.Value = green;
+            this.hexColor = AdvancedColors.ColorToHex(this.SelectedColor);
+            this.Hex_textBox.Text = this.hexColor;
+            OnSelectedColorChange(new SelectedColorChangedEventArgs(this.selectedColor));
+        }
+
+        /// <summary>
+        /// Called when the user uses the blue trackbar
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void blue_trackBar_Scroll(object sender, EventArgs e)
+        {
+            this.blue = blue_trackBar.Value;
+            this.selectedColor = Color.FromArgb(red, green, blue);
+            this.blue_numericUpDown.Value = blue;
+            this.hexColor = AdvancedColors.ColorToHex(this.SelectedColor);
+            this.Hex_textBox.Text = this.hexColor;
+            OnSelectedColorChange(new SelectedColorChangedEventArgs(this.selectedColor));
+        }
+
+        /// <summary>
+        /// Called when the user uses the red trackbar
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void red_trackBar_Scroll(object sender, EventArgs e)
+        {
+            this.red = red_trackBar.Value;
+            this.selectedColor = Color.FromArgb(red, green, blue);
+            this.red_numericUpDown.Value = red;
             this.hexColor = AdvancedColors.ColorToHex(this.SelectedColor);
             this.Hex_textBox.Text = this.hexColor;
             OnSelectedColorChange(new SelectedColorChangedEventArgs(this.selectedColor));
