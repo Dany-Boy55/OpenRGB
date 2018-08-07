@@ -76,6 +76,7 @@
       <DependentUpon>ColorSelector.cs</DependentUpon>
     </Compile>
     <Compile Include="devices\LogitechDevices.cs" />
+    <Compile Include="devices\SerialMatrix.cs" />
     <Compile Include="lib\LogitechGSDK.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>

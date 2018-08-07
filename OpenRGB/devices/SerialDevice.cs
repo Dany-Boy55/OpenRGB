@@ -5,49 +5,6 @@ using System.Threading.Tasks;
 
 namespace OpenRGB.Devices
 {
-    public class SerialMatrix : GenericDevice
-    {
-        #region fields
-        private SerialPort port;
-        #endregion
-
-        public enum Effect
-        {
-            SolidColor,
-            Visor,
-            Rain,
-            Wave,
-            Spectrum,
-            Bitmap,
-        }
-
-        public override void Dispose()
-        {
-            base.Dispose();
-        }
-
-        public override string ToString()
-        {
-            return base.ToString();
-        }
-
-        public SerialMatrix(string portName)
-        {
-            port = new SerialPort(portName, 19200);
-        }
-
-        public override void WriteEffect(Effect effect)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void WriteColor()
-        {
-            throw new NotImplementedException();
-        }
-
-    }
-
 
     /// <summary>
     /// Provides methods and properties common serial based communication
@@ -119,22 +76,6 @@ namespace OpenRGB.Devices
             this.name = null;
             this.id = 0;
             this.type = DeviceType.SerialAdressable;
-            Task.Run(() => tryConnect());
-        }
-
-        protected virtual void tryConnect()
-        {
-            try
-            {
-                port.Open();
-                byte[] dataOut = new byte[] { 0x01, 0x23, 0x00};
-                port.Write(dataOut, 0, dataOut.Length);
-                
-            }
-            catch (Exception)
-            {
-                connected = false;
-            }
         }
 
         protected virtual void OnPortError(EventArgs e)
@@ -197,67 +138,8 @@ namespace OpenRGB.Devices
                 throw new NotImplementedException();
         }
 
-        public override void WriteColor(Color color, int colorNumber)
-        {
-            try
-            {
-                if (!port.IsOpen)
-                    port.Open();
-                byte[] dataOut = new byte[7];
-                dataOut[0] = 0x06;  // length
-                dataOut[1] = 0x56;  // CRC
-                dataOut[2] = 0x01;  // Write color
-                dataOut[3] = (byte)colorNumber; 
-                dataOut[4] = color.R;
-                dataOut[5] = color.G;
-                dataOut[6] = color.B;
-                Task.Run(() => port.Write(dataOut, 0, 7));
-            }
-            catch (Exception)
-            {
-                OnPortError(new EventArgs());
-            }
-        }
         
-        public override void WriteEffect(Effect eff)
-        {
-            try
-            {
-                if (!port.IsOpen)
-                    port.Open();
-                byte[] dataOut = new byte[7];
-                dataOut[0] = 0x06;
-                dataOut[1] = 0x00;
-                dataOut[2] = 0x01;
-                Task.Run(() => port.Write(dataOut, 0, 7));
-            }
-            catch (Exception)
-            {
-                OnPortError(new EventArgs());
-            }
-        }
-
-        /// <summary>
-        /// Sends a lighting effect to a hardware device
-        /// </summary>
-        /// <param name="eff"></param>
-        /// <param name="state"></param>
-        /// <param name="arguments"></param>
-        public void WriteEffect(Effect eff, bool state, int[] arguments)
-        {
-            int length = 3 + arguments.Length;
-            byte[] dataOut = new byte[length];
-            dataOut[0] = (byte)length;  //packet length without this byte
-            dataOut[1] = 0x00;  // CRC not implemented yet
-            dataOut[2] = (byte)eff;  // effect
-            dataOut[3] = (byte)(state ? 0x00 : 0x01); // state of the effect (on / off) = (1 or 0)
-            for (int i = 0; i < arguments.Length; i++)
-            {
-                dataOut[i + 4] = (byte)arguments[i];
-            }
-            Task.Run(() => port.Write(dataOut, 0, length + 1));
-        }
-
+        
         /// <summary>
         /// Override for ToString method
         /// </summary>
@@ -271,6 +153,26 @@ namespace OpenRGB.Devices
         {
             port.Dispose();
             this.Dispose();
+        }
+
+        public override void WriteEffect(Devices.Effect effect, Color color)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void WriteEffect(Devices.Effect effect)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void WriteColor(Color color)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void WriteColor(Color[] color)
+        {
+            throw new NotImplementedException();
         }
     }
 

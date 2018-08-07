@@ -49,17 +49,14 @@ namespace OpenRGB.Devices
         }
     }
 
-    public class LogitechMouse : GenericDevice
+    public sealed class LogitechMouse : GenericDevice
     {
         #region Fields
-        private LogiColor mainColor;
-        private int interval;
+        private LogiColor logiMainColor;
         #endregion
 
         #region Properties
-        public Color MainColor { get => mainColor.GetNormalColor(); set => mainColor = new LogiColor(value); }
-        // Milliseconds bewteen actions for Flash and Breathe
-        public int Interval { get => interval; set => interval = value; }
+        public new Color MainColor { get => logiMainColor.GetNormalColor(); set => logiMainColor = new LogiColor(value); }
         #endregion
 
         /// <summary>
@@ -96,13 +93,13 @@ namespace OpenRGB.Devices
                     LogiLEDAPI.LogiLedStopEffects();
                     break;
                 case Effect.Solid:
-                    LogiLEDAPI.LogiLedSetLighting(mainColor.Red, mainColor.Green, mainColor.Blue);
+                    LogiLEDAPI.LogiLedSetLighting(logiMainColor.Red, logiMainColor.Green, logiMainColor.Blue);
                     break;
                 case Effect.Flash:
-                    LogiLEDAPI.LogiLedFlashLighting(mainColor.Red, mainColor.Green, mainColor.Blue, LogiLEDAPI.DURATION_INFINITE, interval);
+                    LogiLEDAPI.LogiLedFlashLighting(logiMainColor.Red, logiMainColor.Green, logiMainColor.Blue, LogiLEDAPI.DURATION_INFINITE, interval);
                     break;
                 case Effect.Breathe:
-                    LogiLEDAPI.LogiLedPulseLighting(mainColor.Red, mainColor.Green, mainColor.Blue, LogiLEDAPI.DURATION_INFINITE, interval);
+                    LogiLEDAPI.LogiLedPulseLighting(logiMainColor.Red, logiMainColor.Green, logiMainColor.Blue, LogiLEDAPI.DURATION_INFINITE, interval);
                     break;
                 default:
                     break;
