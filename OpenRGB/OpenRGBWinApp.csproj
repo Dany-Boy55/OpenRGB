@@ -125,9 +125,9 @@
   <ItemGroup>
     <Content Include="icons\orgb.ico" />
     <Content Include="icons\plus.png" />
-    <EmbeddedResource Include="lib\LogitechLedEnginesWrapper.dll">
+    <None Include="lib\LogitechLedEnginesWrapper.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
+    </None>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

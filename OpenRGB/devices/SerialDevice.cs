@@ -5,12 +5,49 @@ using System.Threading.Tasks;
 
 namespace OpenRGB.Devices
 {
-
-    public enum Effect
+    public class SerialMatrix : GenericDevice
     {
-        SolidColor,
-        Flash,
-    }    
+        #region fields
+        private SerialPort port;
+        #endregion
+
+        public enum Effect
+        {
+            SolidColor,
+            Visor,
+            Rain,
+            Wave,
+            Spectrum,
+            Bitmap,
+        }
+
+        public override void Dispose()
+        {
+            base.Dispose();
+        }
+
+        public override string ToString()
+        {
+            return base.ToString();
+        }
+
+        public SerialMatrix(string portName)
+        {
+            port = new SerialPort(portName, 19200);
+        }
+
+        public override void WriteEffect(Effect effect)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void WriteColor()
+        {
+            throw new NotImplementedException();
+        }
+
+    }
+
 
     /// <summary>
     /// Provides methods and properties common serial based communication
@@ -42,7 +79,6 @@ namespace OpenRGB.Devices
         private static int instanceNumber;
         private string name;
         private int id;
-        private DeviceType type;
         private bool connected;
         #endregion
 
@@ -83,6 +119,22 @@ namespace OpenRGB.Devices
             this.name = null;
             this.id = 0;
             this.type = DeviceType.SerialAdressable;
+            Task.Run(() => tryConnect());
+        }
+
+        protected virtual void tryConnect()
+        {
+            try
+            {
+                port.Open();
+                byte[] dataOut = new byte[] { 0x01, 0x23, 0x00};
+                port.Write(dataOut, 0, dataOut.Length);
+                
+            }
+            catch (Exception)
+            {
+                connected = false;
+            }
         }
 
         protected virtual void OnPortError(EventArgs e)
@@ -132,7 +184,7 @@ namespace OpenRGB.Devices
             }
         }
 
-        public byte CRC8(byte[] data, int length)
+        private byte CRC8(byte[] data, int length)
         {
             return 0x45;
         }
@@ -145,19 +197,19 @@ namespace OpenRGB.Devices
                 throw new NotImplementedException();
         }
 
-        public void WriteColor(Color color, int colorNumber)
+        public override void WriteColor(Color color, int colorNumber)
         {
             try
             {
                 if (!port.IsOpen)
                     port.Open();
                 byte[] dataOut = new byte[7];
-                dataOut[0] = 0x06;
-                dataOut[1] = 0x56;
-                dataOut[2] = 0x01;
-                dataOut[3] = (byte)colorNumber;
-                dataOut[4] = color.B;
-                dataOut[5] = color.B;
+                dataOut[0] = 0x06;  // length
+                dataOut[1] = 0x56;  // CRC
+                dataOut[2] = 0x01;  // Write color
+                dataOut[3] = (byte)colorNumber; 
+                dataOut[4] = color.R;
+                dataOut[5] = color.G;
                 dataOut[6] = color.B;
                 Task.Run(() => port.Write(dataOut, 0, 7));
             }
@@ -167,7 +219,7 @@ namespace OpenRGB.Devices
             }
         }
         
-        public void WriteEffect(Effect eff, bool state)
+        public override void WriteEffect(Effect eff)
         {
             try
             {
@@ -215,9 +267,10 @@ namespace OpenRGB.Devices
             return name;
         }
 
-        public void Dispose()
+        public override void Dispose()
         {
             port.Dispose();
+            this.Dispose();
         }
     }
 

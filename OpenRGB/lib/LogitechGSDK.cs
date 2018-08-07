@@ -3,9 +3,12 @@ using System.Collections;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace LogiLedSDK
+namespace OpenRGB.lib
 {
-    public enum keyboardNames
+    /// <summary>
+    /// Enumerates keys on per key RGB devices
+    /// </summary>
+    public enum keyboardKeyNames
     {
         ESC = 0x01,
         F1 = 0x3b,
@@ -124,7 +127,10 @@ namespace LogiLedSDK
         G_BADGE = 0xFFFF2
     };
 
-    public enum DeviceType
+    /// <summary>
+    /// Ennumerates compatible devices
+    /// </summary>
+    public enum LogiDeviceType
     {
         Keyboard = 0x0,
         Mouse = 0x3,
@@ -132,6 +138,9 @@ namespace LogiLedSDK
         Headset = 0x8
     }
     
+    /// <summary>
+    /// Provides access to Logitech's LED SDK through LGS
+    /// </summary>
     public abstract class LogiLEDAPI
     {
         //LED SDK
@@ -149,52 +158,141 @@ namespace LogiLedSDK
         public const int LOGI_LED_BITMAP_BYTES_PER_KEY = 4;
 
         public const int LOGI_LED_BITMAP_SIZE = LOGI_LED_BITMAP_WIDTH * LOGI_LED_BITMAP_HEIGHT * LOGI_LED_BITMAP_BYTES_PER_KEY;
-        public const int LOGI_LED_DURATION_INFINITE = 0;
+        public const int DURATION_INFINITE = 0;
 
+        /// <summary>
+        /// Initialize communication between SDK and LGS
+        /// </summary>
+        /// <returns>true if successfull, false otherwise</returns>
         [DllImport("LedEnginesWrapper ", CallingConvention = CallingConvention.Cdecl)]
         public static extern bool LogiLedInit();
 
-        //Config option functions
+        #region configuration options
+        /// <summary>
+        /// Configures an integer option in LGS for the user
+        /// </summary>
+        /// <param name="configPath">name of the option</param>
+        /// <param name="defaultNumber">value of the option returned by reference</param>
+        /// <returns>true if successful, false otherwise</returns>
         [DllImport("LedEnginesWrapper ", CallingConvention = CallingConvention.Cdecl)]
         public static extern bool LogiLedGetConfigOptionNumber([MarshalAs(UnmanagedType.LPWStr)]String configPath, ref double defaultNumber);
 
+        /// <summary>
+        /// Configures an boolean option in LGS for the user
+        /// </summary>
+        /// <param name="configPath">name of the option</param>
+        /// <param name="defaultNumber">value of the option returned by reference</param>
+        /// <returns>true if successful, false otherwise</returns>
         [DllImport("LedEnginesWrapper ", CallingConvention = CallingConvention.Cdecl)]
         public static extern bool LogiLedGetConfigOptionBool([MarshalAs(UnmanagedType.LPWStr)]String configPath, ref bool defaultRed);
 
+        /// <summary>
+        /// Configures a color option in LGS for the user
+        /// </summary>
+        /// <param name="configPath">name of the option</param>
+        /// <param name="defaultNumber">value of the option returned by reference</param>
+        /// <returns>true if successful, false otherwise</returns>
         [DllImport("LedEnginesWrapper ", CallingConvention = CallingConvention.Cdecl)]
         public static extern bool LogiLedGetConfigOptionColor([MarshalAs(UnmanagedType.LPWStr)]String configPath, ref int defaultRed, ref int defaultGreen, ref int defaultBlue);
 
+        /// <summary>
+        /// Configures a key option in LGS for the user
+        /// </summary>
+        /// <param name="configPath">name of the option</param>
+        /// <param name="defaultNumber">value of the option returned by reference</param>
+        /// <returns>true if successful, false otherwise</returns>
         [DllImport("LedEnginesWrapper ", CallingConvention = CallingConvention.Cdecl)]
         public static extern bool LogiLedGetConfigOptionKeyInput([MarshalAs(UnmanagedType.LPWStr)]String configPath, StringBuilder buffer, int bufsize);
-        /////////////////////
+        #endregion
 
+        #region Static methods
+        /// <summary>
+        /// Set the device type that will respond to following commands
+        /// </summary>
+        /// <param name="targetDevice"> Target type, use </param>
+        /// <returns> True if successful, false otherwise</returns>
         [DllImport("LedEnginesWrapper ", CallingConvention = CallingConvention.Cdecl)]
         public static extern bool LogiLedSetTargetDevice(int targetDevice);
 
+        /// <summary>
+        /// Gets the revision of the SDK through the LGS software
+        /// </summary>
+        /// <param name="majorNum"> Passed by reference</param>
+        /// <param name="minorNum"> Passed by reference</param>
+        /// <param name="buildNum"> Passed by reference</param>
+        /// <returns> True if successful, false otherwise</returns>
         [DllImport("LedEnginesWrapper ", CallingConvention = CallingConvention.Cdecl)]
         public static extern bool LogiLedGetSdkVersion(ref int majorNum, ref int minorNum, ref int buildNum);
 
+        /// <summary>
+        /// Saves the current lighting effect to be restored later
+        /// </summary>
+        /// <returns> True if successful, false otherwise</returns>
         [DllImport("LedEnginesWrapper ", CallingConvention = CallingConvention.Cdecl)]
         public static extern bool LogiLedSaveCurrentLighting();
 
+        /// <summary>
+        /// Sets the specified color to the pre-selected target devices
+        /// </summary>
+        /// <param name="redPercentage"> Red component of the color</param>
+        /// <param name="greenPercentage"> Green componenet color</param>
+        /// <param name="bluePercentage"> Blue component of the color</param>
+        /// <returns> True if successful, false otherwise</returns>
         [DllImport("LedEnginesWrapper ", CallingConvention = CallingConvention.Cdecl)]
         public static extern bool LogiLedSetLighting(int redPercentage, int greenPercentage, int bluePercentage);
 
+        /// <summary>
+        /// Restores the lighting effect saved by SaveCurrentLighting()
+        /// </summary>
+        /// <returns> True if successful, false otherwise</returns>
         [DllImport("LedEnginesWrapper ", CallingConvention = CallingConvention.Cdecl)]
         public static extern bool LogiLedRestoreLighting();
 
+        /// <summary>
+        /// Sets the effect to flashign with the specified parameters
+        /// </summary>
+        /// <param name="redPercentage"> Red component of the color</param>
+        /// <param name="greenPercentage"> Green component of the color</param>
+        /// <param name="bluePercentage"> Blue component of the color</param>
+        /// <param name="milliSecondsDuration"> Duration of the effec (use 0 for infinite)</param>
+        /// <param name="milliSecondsInterval"> Interval between flashes</param>
+        /// <returns> True if successful, false otherwise</returns>
         [DllImport("LedEnginesWrapper ", CallingConvention = CallingConvention.Cdecl)]
         public static extern bool LogiLedFlashLighting(int redPercentage, int greenPercentage, int bluePercentage, int milliSecondsDuration, int milliSecondsInterval);
 
+        /// <summary>
+        /// Sets the effect to pulsing with the specified parameters
+        /// </summary>
+        /// <param name="redPercentage"> Red component of the color</param>
+        /// <param name="greenPercentage"> Green component of the color</param>
+        /// <param name="bluePercentage"> Blue component of the color</param>
+        /// <param name="milliSecondsDuration"> Duration of the effec (use 0 for infinite)</param>
+        /// <param name="milliSecondsInterval"> Interval between flashes</param>
+        /// <returns> True if successful, false otherwise</returns>
         [DllImport("LedEnginesWrapper ", CallingConvention = CallingConvention.Cdecl)]
         public static extern bool LogiLedPulseLighting(int redPercentage, int greenPercentage, int bluePercentage, int milliSecondsDuration, int milliSecondsInterval);
 
+        /// <summary>
+        /// Stops the current effect 
+        /// </summary>
+        /// <returns> True if successful, false otherwise</returns>
         [DllImport("LedEnginesWrapper ", CallingConvention = CallingConvention.Cdecl)]
         public static extern bool LogiLedStopEffects();
 
+        /// <summary>
+        /// Exclude keys from a bitmap on a keyboard
+        /// </summary>
+        /// <param name="keyList"> keys to be excluded</param>
+        /// <param name="listCount"> number of keys to be excluded</param>
+        /// <returns> True if successful, false otherwise</returns>
         [DllImport("LedEnginesWrapper ", CallingConvention = CallingConvention.Cdecl)]
-        public static extern bool LogiLedExcludeKeysFromBitmap(keyboardNames[] keyList, int listCount);
+        public static extern bool LogiLedExcludeKeysFromBitmap(keyboardKeyNames[] keyList, int listCount);
 
+        /// <summary>
+        /// Sets the lights on a keyboard from the specified bitmap 
+        /// </summary>
+        /// <param name="bitmap"> lighting source</param>
+        /// <returns> True if successful, false otherwise</returns>
         [DllImport("LedEnginesWrapper ", CallingConvention = CallingConvention.Cdecl)]
         public static extern bool LogiLedSetLightingFromBitmap(byte[] bitmap);
 
@@ -208,28 +306,32 @@ namespace LogiLedSDK
         public static extern bool LogiLedSetLightingForKeyWithQuartzCode(int keyCode, int redPercentage, int greenPercentage, int bluePercentage);
 
         [DllImport("LedEnginesWrapper ", CallingConvention = CallingConvention.Cdecl)]
-        public static extern bool LogiLedSetLightingForKeyWithKeyName(keyboardNames keyCode, int redPercentage, int greenPercentage, int bluePercentage);
+        public static extern bool LogiLedSetLightingForKeyWithKeyName(keyboardKeyNames keyCode, int redPercentage, int greenPercentage, int bluePercentage);
 
         [DllImport("LedEnginesWrapper ", CallingConvention = CallingConvention.Cdecl)]
-        public static extern bool LogiLedSaveLightingForKey(keyboardNames keyName);
+        public static extern bool LogiLedSaveLightingForKey(keyboardKeyNames keyName);
 
         [DllImport("LedEnginesWrapper ", CallingConvention = CallingConvention.Cdecl)]
-        public static extern bool LogiLedRestoreLightingForKey(keyboardNames keyName);
+        public static extern bool LogiLedRestoreLightingForKey(keyboardKeyNames keyName);
 
         [DllImport("LedEnginesWrapper ", CallingConvention = CallingConvention.Cdecl)]
-        public static extern bool LogiLedFlashSingleKey(keyboardNames keyName, int redPercentage, int greenPercentage, int bluePercentage, int msDuration, int msInterval);
+        public static extern bool LogiLedFlashSingleKey(keyboardKeyNames keyName, int redPercentage, int greenPercentage, int bluePercentage, int msDuration, int msInterval);
 
         [DllImport("LedEnginesWrapper ", CallingConvention = CallingConvention.Cdecl)]
-        public static extern bool LogiLedPulseSingleKey(keyboardNames keyName, int startRedPercentage, int startGreenPercentage, int startBluePercentage, int finishRedPercentage, int finishGreenPercentage, int finishBluePercentage, int msDuration, bool isInfinite);
+        public static extern bool LogiLedPulseSingleKey(keyboardKeyNames keyName, int startRedPercentage, int startGreenPercentage, int startBluePercentage, int finishRedPercentage, int finishGreenPercentage, int finishBluePercentage, int msDuration, bool isInfinite);
 
         [DllImport("LedEnginesWrapper ", CallingConvention = CallingConvention.Cdecl)]
-        public static extern bool LogiLedStopEffectsOnKey(keyboardNames keyName);
+        public static extern bool LogiLedStopEffectsOnKey(keyboardKeyNames keyName);
 
         [DllImport("LedEnginesWrapper ", CallingConvention = CallingConvention.Cdecl)]
-        public static extern bool LogiLedSetLightingForTargetZone(DeviceType deviceType, int zone, int redPercentage, int greenPercentage, int bluePercentage);
+        public static extern bool LogiLedSetLightingForTargetZone(LogiDeviceType deviceType, int zone, int redPercentage, int greenPercentage, int bluePercentage);
         
+        /// <summary>
+        /// Stops the cummunication between the SDK and LGS
+        /// </summary>
         [DllImport("LedEnginesWrapper ", CallingConvention = CallingConvention.Cdecl)]
         public static extern void LogiLedShutdown();
+        #endregion
     }
 
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,6 +22,15 @@ namespace OpenRGB.Devices
         CorsairKeyboard,
     }
 
+    public enum Effect
+    {
+        Off,
+        Solid,
+        Flash,
+        Breathe,
+        Matrix
+    }
+
     /// <summary>
     /// Describes exceptions for hardware devices
     /// </summary>
@@ -41,19 +51,23 @@ namespace OpenRGB.Devices
     /// </summary>
     public abstract class GenericDevice
     {
-        private DeviceType type;
+        protected DeviceType type;
 
         public DeviceType Type{ get => type; }
 
         public GenericDevice()
         {
-            type = DeviceType.Empty;
+            this.type = DeviceType.Empty;
         }
 
-        public GenericDevice(DeviceType intype)
-        {
-            type = intype;
-        }
+        public abstract void Dispose();
 
+        public abstract void WriteEffect(Effect effect, Color color);
+
+        public abstract void WriteEffect(Effect effect);
+
+        public abstract void WriteColor(Color color);
+
+        public abstract void WriteColor(Color[] color);
     }
 }

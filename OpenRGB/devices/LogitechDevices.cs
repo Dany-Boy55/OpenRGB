@@ -1,34 +1,10 @@
 ﻿using System;
 using OpenRGB.Devices;
-using LogiLedSDK;
+using OpenRGB.lib;
 using System.Drawing;
 
 namespace OpenRGB.Devices
 {
-
-    /// <summary>
-    /// Effects for logitech mouses
-    /// </summary>
-    public enum LogiMouseEffects
-    {
-        Off,
-        Solid, 
-        Flash,
-        Breathe,
-    }
-
-    /// <summary>
-    /// Effects for logitech keyboards
-    /// </summary>
-    public enum LogiKeyboardEffects
-    {
-        Off,
-        Solid,
-        Flash,
-        Breathe,
-        Matrix
-    }
-
 
     /// <summary>
     /// Describes a color with chanels from 0 to 100 instead of 0 to 255 used by logitech SDK
@@ -66,6 +42,11 @@ namespace OpenRGB.Devices
             _blue = (int)(this.blue * 2.55);
             return Color.FromArgb(_red, _green, _blue);
         }
+        
+        public static LogiColor FromColor(Color color)
+        {
+            return new LogiColor(color);
+        }
     }
 
     public class LogitechMouse : GenericDevice
@@ -75,7 +56,7 @@ namespace OpenRGB.Devices
         private int interval;
         #endregion
 
-        #region Encapsulations
+        #region Properties
         public Color MainColor { get => mainColor.GetNormalColor(); set => mainColor = new LogiColor(value); }
         // Milliseconds bewteen actions for Flash and Breathe
         public int Interval { get => interval; set => interval = value; }
@@ -91,40 +72,82 @@ namespace OpenRGB.Devices
             {
                 throw new RGBHardwareException("Could not start the logitech LED SDK");
             }
+            this.type = DeviceType.LogitechMouse;
             LogiLEDAPI.LogiLedSetTargetDevice(LogiLEDAPI.LOGI_DEVICETYPE_RGB);
         }
+
+
+        public override void WriteEffect(Effect effect, Color color)
+        {
+            throw new NotImplementedException();
+        }
+
 
         /// <summary>
         /// Writes the described effect to the Logitech SDK with the MainColor
         /// </summary>
         /// <param name="effect"></param>
-        public void writeEffect(LogiMouseEffects effect)
+        public override void WriteEffect(Effect effect)
         {
             LogiLEDAPI.LogiLedSaveCurrentLighting();
             switch (effect)
             {
-                case LogiMouseEffects.Off:
+                case Effect.Off:
                     LogiLEDAPI.LogiLedStopEffects();
                     break;
-                case LogiMouseEffects.Solid:
+                case Effect.Solid:
                     LogiLEDAPI.LogiLedSetLighting(mainColor.Red, mainColor.Green, mainColor.Blue);
                     break;
-                case LogiMouseEffects.Flash:
-                    LogiLEDAPI.LogiLedFlashLighting(mainColor.Red, mainColor.Green, mainColor.Blue, LogiLEDAPI.LOGI_LED_DURATION_INFINITE, 500);
+                case Effect.Flash:
+                    LogiLEDAPI.LogiLedFlashLighting(mainColor.Red, mainColor.Green, mainColor.Blue, LogiLEDAPI.DURATION_INFINITE, interval);
                     break;
-                case LogiMouseEffects.Breathe:
-                    LogiLEDAPI.LogiLedPulseLighting(mainColor.Red, mainColor.Green, mainColor.Blue, LogiLEDAPI.LOGI_LED_DURATION_INFINITE, 500);
+                case Effect.Breathe:
+                    LogiLEDAPI.LogiLedPulseLighting(mainColor.Red, mainColor.Green, mainColor.Blue, LogiLEDAPI.DURATION_INFINITE, interval);
                     break;
                 default:
                     break;
             }
         }
 
-        public void Dispose()
+        /// <summary>
+        /// Shutdown the logitech API and dispose of all instance resources
+        /// </summary>
+        public override void Dispose()
         {
             LogiLEDAPI.LogiLedStopEffects();
             LogiLEDAPI.LogiLedRestoreLighting();
             LogiLEDAPI.LogiLedShutdown();
+            this.Dispose();
+        }
+
+        public override void WriteColor(Color color)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void WriteColor(Color[] color)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class LogitechKeyboard
+    {
+        #region Fields
+        private LogiColor mainColor;
+        private int interval;
+        #endregion
+
+        #region Properties
+        public Color MainColor { get => mainColor.GetNormalColor(); set => mainColor = new LogiColor(MainColor); }
+        #endregion
+
+        public LogitechKeyboard()
+        {
+            if (!LogiLEDAPI.LogiLedInit())
+            {
+                throw new RGBHardwareException("Error while communicating with LGS");
+            }
         }
 
     }

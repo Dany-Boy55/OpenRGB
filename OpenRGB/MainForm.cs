@@ -1,13 +1,15 @@
 ﻿using System;
 using OpenRGB.Devices;
 using System.Threading;
-using LogiLedSDK;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace OpenRGB
 {
     public partial class MainForm : Form
     {
+
+        public GenericDevice devices;
         
         public MainForm()
         {
@@ -16,18 +18,20 @@ namespace OpenRGB
 
         private void deviceBox1_MouseClick(object sender, MouseEventArgs e)
         {
-            this.label1.Text = "Configure a new device";
-            LogiLEDAPI.LogiLedSaveCurrentLighting();
+            var dev = new LogitechMouse();
+            dev.Interval = 500;
+            dev.MainColor = Color.AliceBlue;
             Thread.Sleep(200);
-            int red = 0, green = 100, blue = 100;
-            Thread.Sleep(200);
-            LogiLEDAPI.LogiLedFlashLighting(red, green, blue, 5000, 100);            ;
-            LogiLEDAPI.LogiLedRestoreLighting();
+            dev.WriteEffect(Effect.Flash);
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            LogiLEDAPI.LogiLedShutdown();
+            if(devices != null)
+            {
+                
+            }
+
         }
     }
 }
