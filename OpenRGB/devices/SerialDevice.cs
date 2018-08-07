@@ -1,55 +1,31 @@
 ﻿using System;
-using LogitechLEDSDK;
-using System.IO;
-using System.IO.Ports;
 using System.Drawing;
+using System.IO.Ports;
 using System.Threading.Tasks;
 
-namespace OpenRGBDevices
+namespace OpenRGB.Devices
 {
-    public enum ControllerType
-    {
-        Empty,
-        Simple,
-        Addresseable,
-        SimpleAndAdresseable,
-        Matrix,
-        LogitechMouse,
-        LogitechKeyboard,
-        CorsairMouse,
-        CorsairKeyboard,
-    }
 
     public enum Effect
     {
         SolidColor,
         Flash,
-    }
-
-    public class RGBHardwareException : Exception
-    {
-        public RGBHardwareException()
-        {
-            
-        }
-    }
-    
+    }    
 
     /// <summary>
     /// Provides methods and properties common serial based communication
     /// </summary>
-    public class SerialController
+    public class SerialController : GenericDevice
     {
         /// <summary>
         /// Describes the different types of RGB controllers availeable
-        /// </summary>
-        
+        /// </summary>        
         private enum Commands
         {
             Color = 0x00,
             Off = 0x01,
             SolidColor = 0x02,
-            ColorChase1 =0x03,            
+            ColorChase1 = 0x03,            
         }
 
         public enum Effect
@@ -63,17 +39,18 @@ namespace OpenRGBDevices
 
         #region private fields
         private SerialPort port;
+        private static int instanceNumber;
         private string name;
         private int id;
-        private ControllerType type;
+        private DeviceType type;
         private bool connected;
         #endregion
 
         #region encapsulated properties
         public string Name { get => name; }
         public int Id { get => id; }
-        public ControllerType Type { get => type; }
         public bool Connected { get => connected; }
+        public static int InstanceNumber { get => instanceNumber; }
         #endregion
 
         public event EventHandler<EventArgs> DeviceRemoved;
@@ -89,7 +66,8 @@ namespace OpenRGBDevices
             this.port = serialPort;
             this.name = null;
             this.id = 0;
-            this.type = ControllerType.Empty;
+            this.type = DeviceType.SerialAdressable;
+            instanceNumber++;
         }
 
         /// <summary>
@@ -104,12 +82,12 @@ namespace OpenRGBDevices
             this.port = new SerialPort(portName, 19200);
             this.name = null;
             this.id = 0;
-            this.type = ControllerType.Empty;
+            this.type = DeviceType.SerialAdressable;
         }
 
         protected virtual void OnPortError(EventArgs e)
         {
-            DeviceRemoved?.Invoke(this, e);
+            throw new RGBHardwareException("There was a problem with the Serial port on device" + this.ToString());
         }
 
         private void Port_ErrorReceived(object sender, SerialErrorReceivedEventArgs e)
@@ -134,12 +112,29 @@ namespace OpenRGBDevices
         }
 
         /// <summary>
-        /// 
+        /// Used to get data from the serial device
         /// </summary>
         /// <returns></returns>
         public void Identify()
         {
-            throw new NotImplementedException();
+            // length,crc8,data request
+            byte[] dataOut = new byte[] { 0x01, 0x00, 0x00};
+            if (connected){
+                try
+                {
+                    port.Write(dataOut, 0, 3);
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+            }
+        }
+
+        public byte CRC8(byte[] data, int length)
+        {
+            return 0x45;
         }
 
         public void ChangeName()
@@ -218,7 +213,12 @@ namespace OpenRGBDevices
         public override string ToString()
         {
             return name;
-        }        
+        }
+
+        public void Dispose()
+        {
+            port.Dispose();
+        }
     }
 
     

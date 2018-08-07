@@ -64,8 +64,8 @@
     <Compile Include="customControls\deviceBox.Designer.cs">
       <DependentUpon>deviceBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="hardwareClases\GenericDevice.cs" />
-    <Compile Include="hardwareClases\HardwareRGB.cs" />
+    <Compile Include="devices\GenericDevice.cs" />
+    <Compile Include="devices\SerialDevice.cs" />
     <Compile Include="customControls\ColorBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -75,8 +75,7 @@
     <Compile Include="customControls\ColorSelector.Designer.cs">
       <DependentUpon>ColorSelector.cs</DependentUpon>
     </Compile>
-    <Compile Include="hardwareClases\IHardwareDevice.cs" />
-    <Compile Include="hardwareClases\LogitechDevices.cs" />
+    <Compile Include="devices\LogitechDevices.cs" />
     <Compile Include="lib\LogitechGSDK.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
@@ -107,7 +106,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -124,9 +125,9 @@
   <ItemGroup>
     <Content Include="icons\orgb.ico" />
     <Content Include="icons\plus.png" />
-    <Content Include="lib\LogitechLedEnginesWrapper.dll">
+    <EmbeddedResource Include="lib\LogitechLedEnginesWrapper.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

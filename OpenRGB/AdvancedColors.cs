@@ -12,7 +12,10 @@ namespace OpenRGB
     /// </summary>
     public abstract class AdvancedColors
     {
-        private static Dictionary<int, char> HEXInt = new Dictionary<int, char>()
+        /// <summary>
+        /// Used to be parsed a color struct as a hex string
+        /// </summary>
+        private static Dictionary<int, char> ByteHEXInt = new Dictionary<int, char>()
         {
             [0] = '0',
             [1] = '1',
@@ -61,12 +64,12 @@ namespace OpenRGB
         {
             char[] output = new char[6];
             // Use a dictionary to convert the numeric values into hexadecimal characters
-            output[0] = HEXInt[color.R / 16];
-            output[1] = HEXInt[color.R % 16];
-            output[2] = HEXInt[color.G / 16];
-            output[3] = HEXInt[color.G % 16];
-            output[4] = HEXInt[color.B / 16];
-            output[5] = HEXInt[color.B % 16];
+            output[0] = ByteHEXInt[color.R / 16];
+            output[1] = ByteHEXInt[color.R % 16];
+            output[2] = ByteHEXInt[color.G / 16];
+            output[3] = ByteHEXInt[color.G % 16];
+            output[4] = ByteHEXInt[color.B / 16];
+            output[5] = ByteHEXInt[color.B % 16];
             return new string(output);
         }
 

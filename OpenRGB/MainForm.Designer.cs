@@ -33,16 +33,16 @@
             this.Start_tabPage = new System.Windows.Forms.TabPage();
             this.Devices_tabPage = new System.Windows.Forms.TabPage();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.Settings_tabPage = new System.Windows.Forms.TabPage();
-            this.Help_tabPage = new System.Windows.Forms.TabPage();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.deviceBox1 = new OpenRGB.deviceBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.deviceBox1 = new OpenRGB.deviceBox();
+            this.Settings_tabPage = new System.Windows.Forms.TabPage();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.Help_tabPage = new System.Windows.Forms.TabPage();
             this.Main_tabControl.SuspendLayout();
             this.Devices_tabPage.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -61,21 +61,21 @@
             this.Main_tabControl.Controls.Add(this.Settings_tabPage);
             this.Main_tabControl.Controls.Add(this.Help_tabPage);
             this.Main_tabControl.HotTrack = true;
-            this.Main_tabControl.Location = new System.Drawing.Point(8, 8);
-            this.Main_tabControl.Margin = new System.Windows.Forms.Padding(2);
+            this.Main_tabControl.Location = new System.Drawing.Point(11, 10);
+            this.Main_tabControl.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Main_tabControl.Multiline = true;
             this.Main_tabControl.Name = "Main_tabControl";
             this.Main_tabControl.SelectedIndex = 0;
-            this.Main_tabControl.Size = new System.Drawing.Size(701, 382);
+            this.Main_tabControl.Size = new System.Drawing.Size(935, 470);
             this.Main_tabControl.TabIndex = 1;
             // 
             // Start_tabPage
             // 
-            this.Start_tabPage.Location = new System.Drawing.Point(23, 4);
-            this.Start_tabPage.Margin = new System.Windows.Forms.Padding(2);
+            this.Start_tabPage.Location = new System.Drawing.Point(25, 4);
+            this.Start_tabPage.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Start_tabPage.Name = "Start_tabPage";
-            this.Start_tabPage.Padding = new System.Windows.Forms.Padding(2);
-            this.Start_tabPage.Size = new System.Drawing.Size(674, 374);
+            this.Start_tabPage.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Start_tabPage.Size = new System.Drawing.Size(906, 462);
             this.Start_tabPage.TabIndex = 0;
             this.Start_tabPage.Text = "Start";
             this.Start_tabPage.UseVisualStyleBackColor = true;
@@ -84,10 +84,10 @@
             // 
             this.Devices_tabPage.Controls.Add(this.panel1);
             this.Devices_tabPage.Controls.Add(this.flowLayoutPanel1);
-            this.Devices_tabPage.Location = new System.Drawing.Point(23, 4);
-            this.Devices_tabPage.Margin = new System.Windows.Forms.Padding(2);
+            this.Devices_tabPage.Location = new System.Drawing.Point(25, 4);
+            this.Devices_tabPage.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Devices_tabPage.Name = "Devices_tabPage";
-            this.Devices_tabPage.Size = new System.Drawing.Size(674, 374);
+            this.Devices_tabPage.Size = new System.Drawing.Size(906, 462);
             this.Devices_tabPage.TabIndex = 1;
             this.Devices_tabPage.Text = "Devices";
             this.Devices_tabPage.UseVisualStyleBackColor = true;
@@ -99,96 +99,21 @@
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label1);
-            this.panel1.Location = new System.Drawing.Point(173, 3);
+            this.panel1.Location = new System.Drawing.Point(231, 4);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(498, 368);
+            this.panel1.Size = new System.Drawing.Size(664, 453);
             this.panel1.TabIndex = 1;
             // 
-            // flowLayoutPanel1
+            // comboBox2
             // 
-            this.flowLayoutPanel1.Controls.Add(this.deviceBox1);
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(4, 4);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(163, 367);
-            this.flowLayoutPanel1.TabIndex = 0;
-            // 
-            // Settings_tabPage
-            // 
-            this.Settings_tabPage.Controls.Add(this.tableLayoutPanel1);
-            this.Settings_tabPage.Location = new System.Drawing.Point(23, 4);
-            this.Settings_tabPage.Margin = new System.Windows.Forms.Padding(2);
-            this.Settings_tabPage.Name = "Settings_tabPage";
-            this.Settings_tabPage.Size = new System.Drawing.Size(674, 374);
-            this.Settings_tabPage.TabIndex = 2;
-            this.Settings_tabPage.Text = "Settings";
-            this.Settings_tabPage.UseVisualStyleBackColor = true;
-            // 
-            // Help_tabPage
-            // 
-            this.Help_tabPage.Location = new System.Drawing.Point(23, 4);
-            this.Help_tabPage.Margin = new System.Windows.Forms.Padding(2);
-            this.Help_tabPage.Name = "Help_tabPage";
-            this.Help_tabPage.Size = new System.Drawing.Size(674, 374);
-            this.Help_tabPage.TabIndex = 3;
-            this.Help_tabPage.Text = "Help";
-            this.Help_tabPage.UseVisualStyleBackColor = true;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
-            this.label1.Location = new System.Drawing.Point(3, 7);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(211, 24);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Select a device to beign";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.label2.Location = new System.Drawing.Point(3, 40);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(95, 20);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Device Type";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.label3.Location = new System.Drawing.Point(3, 73);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(38, 20);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "Port";
-            // 
-            // tableLayoutPanel1
-            // 
-            this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 3);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 4;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(668, 368);
-            this.tableLayoutPanel1.TabIndex = 0;
-            // 
-            // deviceBox1
-            // 
-            this.deviceBox1.BackColor = System.Drawing.SystemColors.Control;
-            this.deviceBox1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("deviceBox1.BackgroundImage")));
-            this.deviceBox1.Location = new System.Drawing.Point(5, 6);
-            this.deviceBox1.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
-            this.deviceBox1.Name = "deviceBox1";
-            this.deviceBox1.PortName = null;
-            this.deviceBox1.Size = new System.Drawing.Size(150, 150);
-            this.deviceBox1.TabIndex = 0;
-            this.deviceBox1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.deviceBox1_MouseClick);
+            this.comboBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Location = new System.Drawing.Point(140, 86);
+            this.comboBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(160, 33);
+            this.comboBox2.TabIndex = 4;
             // 
             // comboBox1
             // 
@@ -197,28 +122,110 @@
             this.comboBox1.Items.AddRange(new object[] {
             "OpenRGB Serial Device",
             "Logitech Peripheral"});
-            this.comboBox1.Location = new System.Drawing.Point(105, 38);
+            this.comboBox1.Location = new System.Drawing.Point(140, 47);
+            this.comboBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 28);
+            this.comboBox1.Size = new System.Drawing.Size(160, 33);
             this.comboBox1.TabIndex = 3;
             // 
-            // comboBox2
+            // label3
             // 
-            this.comboBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(105, 70);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(121, 28);
-            this.comboBox2.TabIndex = 4;
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.label3.Location = new System.Drawing.Point(4, 90);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(97, 25);
+            this.label3.TabIndex = 2;
+            this.label3.Text = "Argument";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.label2.Location = new System.Drawing.Point(4, 49);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(122, 25);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "Device Type";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            this.label1.Location = new System.Drawing.Point(4, 9);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(270, 29);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Select a device to beign";
+            // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.Controls.Add(this.deviceBox1);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(5, 5);
+            this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(217, 452);
+            this.flowLayoutPanel1.TabIndex = 0;
+            // 
+            // deviceBox1
+            // 
+            this.deviceBox1.BackColor = System.Drawing.SystemColors.Control;
+            this.deviceBox1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("deviceBox1.BackgroundImage")));
+            this.deviceBox1.Location = new System.Drawing.Point(7, 7);
+            this.deviceBox1.Margin = new System.Windows.Forms.Padding(7, 7, 7, 7);
+            this.deviceBox1.Name = "deviceBox1";
+            this.deviceBox1.Size = new System.Drawing.Size(200, 185);
+            this.deviceBox1.TabIndex = 0;
+            this.deviceBox1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.deviceBox1_MouseClick);
+            // 
+            // Settings_tabPage
+            // 
+            this.Settings_tabPage.Controls.Add(this.tableLayoutPanel1);
+            this.Settings_tabPage.Location = new System.Drawing.Point(25, 4);
+            this.Settings_tabPage.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Settings_tabPage.Name = "Settings_tabPage";
+            this.Settings_tabPage.Size = new System.Drawing.Size(906, 462);
+            this.Settings_tabPage.TabIndex = 2;
+            this.Settings_tabPage.Text = "Settings";
+            this.Settings_tabPage.UseVisualStyleBackColor = true;
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(4, 4);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 4;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(891, 453);
+            this.tableLayoutPanel1.TabIndex = 0;
+            // 
+            // Help_tabPage
+            // 
+            this.Help_tabPage.Location = new System.Drawing.Point(25, 4);
+            this.Help_tabPage.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Help_tabPage.Name = "Help_tabPage";
+            this.Help_tabPage.Size = new System.Drawing.Size(906, 462);
+            this.Help_tabPage.TabIndex = 3;
+            this.Help_tabPage.Text = "Help";
+            this.Help_tabPage.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(717, 398);
+            this.ClientSize = new System.Drawing.Size(956, 490);
             this.Controls.Add(this.Main_tabControl);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(2);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "MainForm";
             this.Text = "Open RGB";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);

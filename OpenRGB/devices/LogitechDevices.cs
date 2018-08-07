@@ -1,10 +1,14 @@
 ﻿using System;
-using LogitechLEDSDK;
+using OpenRGB.Devices;
+using LogiLedSDK;
 using System.Drawing;
 
-namespace OpenRGB.hardwareClases
+namespace OpenRGB.Devices
 {
 
+    /// <summary>
+    /// Effects for logitech mouses
+    /// </summary>
     public enum LogiMouseEffects
     {
         Off,
@@ -13,6 +17,9 @@ namespace OpenRGB.hardwareClases
         Breathe,
     }
 
+    /// <summary>
+    /// Effects for logitech keyboards
+    /// </summary>
     public enum LogiKeyboardEffects
     {
         Off,
@@ -61,23 +68,31 @@ namespace OpenRGB.hardwareClases
         }
     }
 
-    public class LogitechMouse
+    public class LogitechMouse : GenericDevice
     {
+        #region Fields
         private LogiColor mainColor;
         private int interval;
+        #endregion
+
+        #region Encapsulations
+        public Color MainColor { get => mainColor.GetNormalColor(); set => mainColor = new LogiColor(value); }
+        // Milliseconds bewteen actions for Flash and Breathe
+        public int Interval { get => interval; set => interval = value; }
+        #endregion
 
         /// <summary>
         /// Constructor that also initializes the SDK
         /// </summary>
         public LogitechMouse()
         {
-            LogitechGAPI.LogiLedInit();
-            LogitechGAPI.LogiLedSetTargetDevice(LogitechGAPI.LOGI_DEVICETYPE_RGB);
+            // When initializing the logitech wrapper false means an error
+            if (!LogiLEDAPI.LogiLedInit())
+            {
+                throw new RGBHardwareException("Could not start the logitech LED SDK");
+            }
+            LogiLEDAPI.LogiLedSetTargetDevice(LogiLEDAPI.LOGI_DEVICETYPE_RGB);
         }
-
-        public Color MainColor { get => mainColor.GetNormalColor(); set => mainColor = new LogiColor(value); }
-        // Milliseconds bewteen actions for Flash and Breathe
-        public int Interval { get => interval; set => interval = value; }
 
         /// <summary>
         /// Writes the described effect to the Logitech SDK with the MainColor
@@ -85,24 +100,32 @@ namespace OpenRGB.hardwareClases
         /// <param name="effect"></param>
         public void writeEffect(LogiMouseEffects effect)
         {
-            LogitechGAPI.LogiLedSaveCurrentLighting();
+            LogiLEDAPI.LogiLedSaveCurrentLighting();
             switch (effect)
             {
                 case LogiMouseEffects.Off:
-                    LogitechGAPI.LogiLedStopEffects();
+                    LogiLEDAPI.LogiLedStopEffects();
                     break;
                 case LogiMouseEffects.Solid:
-                    LogitechGAPI.LogiLedSetLighting(mainColor.Red, mainColor.Green, mainColor.Blue);
+                    LogiLEDAPI.LogiLedSetLighting(mainColor.Red, mainColor.Green, mainColor.Blue);
                     break;
                 case LogiMouseEffects.Flash:
-                    LogitechGAPI.LogiLedFlashLighting(mainColor.Red, mainColor.Green, mainColor.Blue, LogitechGAPI.LOGI_LED_DURATION_INFINITE, 500);
+                    LogiLEDAPI.LogiLedFlashLighting(mainColor.Red, mainColor.Green, mainColor.Blue, LogiLEDAPI.LOGI_LED_DURATION_INFINITE, 500);
                     break;
                 case LogiMouseEffects.Breathe:
-                    LogitechGAPI.LogiLedPulseLighting(mainColor.Red, mainColor.Green, mainColor.Blue, LogitechGAPI.LOGI_LED_DURATION_INFINITE, 500);
+                    LogiLEDAPI.LogiLedPulseLighting(mainColor.Red, mainColor.Green, mainColor.Blue, LogiLEDAPI.LOGI_LED_DURATION_INFINITE, 500);
                     break;
                 default:
                     break;
             }
         }
+
+        public void Dispose()
+        {
+            LogiLEDAPI.LogiLedStopEffects();
+            LogiLEDAPI.LogiLedRestoreLighting();
+            LogiLEDAPI.LogiLedShutdown();
+        }
+
     }
 }
