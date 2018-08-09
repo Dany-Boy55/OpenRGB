@@ -22,7 +22,7 @@ namespace OpenRGB.Devices
             ColorChase1 = 0x03,            
         }
 
-        public enum Effect
+        private enum EffectCode
         {
             Off,
             SolidColor,
@@ -98,7 +98,7 @@ namespace OpenRGB.Devices
             // compare the specified string to the availeable ports
             foreach (string item in SerialPort.GetPortNames())
             {
-                if (portName.ToLower() == item.ToLower())
+                if (portName.ToUpper() == item)
                     return true;
             }
             return false;
@@ -137,8 +137,6 @@ namespace OpenRGB.Devices
             else
                 throw new NotImplementedException();
         }
-
-        
         
         /// <summary>
         /// Override for ToString method
@@ -171,6 +169,26 @@ namespace OpenRGB.Devices
         }
 
         public override void WriteColor(Color[] color)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override Task WriteEffectAsync(Effect effect)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override Task WriteEffectAsync(Effect effect, Color color)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override Task WriteColorAsync(Color color)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override Task WriteColorAsync(Color[] colors)
         {
             throw new NotImplementedException();
         }

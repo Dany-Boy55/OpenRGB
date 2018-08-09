@@ -2,6 +2,7 @@
 using OpenRGB.Devices;
 using OpenRGB.lib;
 using System.Drawing;
+using System.Threading.Tasks;
 
 namespace OpenRGB.Devices
 {
@@ -126,17 +127,36 @@ namespace OpenRGB.Devices
         {
             throw new NotImplementedException();
         }
+
+        public override Task WriteEffectAsync(Effect effect)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override Task WriteEffectAsync(Effect effect, Color color)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override Task WriteColorAsync(Color color)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override Task WriteColorAsync(Color[] colors)
+        {
+            throw new NotImplementedException();
+        }
     }
 
-    public class LogitechKeyboard
+    public class LogitechKeyboard : GenericDevice
     {
         #region Fields
-        private LogiColor mainColor;
-        private int interval;
+        private LogiColor logiMainColor;
         #endregion
 
         #region Properties
-        public Color MainColor { get => mainColor.GetNormalColor(); set => mainColor = new LogiColor(MainColor); }
+        public new Color MainColor { get => logiMainColor.GetNormalColor(); set => logiMainColor = new LogiColor(MainColor); }
         #endregion
 
         public LogitechKeyboard()
@@ -147,5 +167,49 @@ namespace OpenRGB.Devices
             }
         }
 
+        public override void Dispose()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void WriteEffect(Effect effect, Color color)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void WriteEffect(Effect effect)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void WriteColor(Color color)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void WriteColor(Color[] color)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override Task WriteEffectAsync(Effect effect)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override Task WriteEffectAsync(Effect effect, Color color)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override Task WriteColorAsync(Color color)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override Task WriteColorAsync(Color[] colors)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

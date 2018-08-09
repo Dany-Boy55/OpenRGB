@@ -78,7 +78,7 @@ namespace OpenRGB.Devices
         public DeviceType Type{ get => type; }
         public  Color MainColor { get => mainColor; set => mainColor = value; }
         public  Color SecondaryColor { get => secondaryColor; set => secondaryColor = value; }
-        protected int Interval { get => interval; set => interval = value; }
+        public int Interval { get => interval; set => interval = value; }
         #endregion
 
         #region Constructors
@@ -98,6 +98,14 @@ namespace OpenRGB.Devices
         public abstract void WriteColor(Color color);
 
         public abstract void WriteColor(Color[] color);
+
+        public abstract Task WriteEffectAsync(Effect effect);
+
+        public abstract Task WriteEffectAsync(Effect effect, Color color);
+
+        public abstract Task WriteColorAsync(Color color);
+
+        public abstract Task WriteColorAsync(Color[] colors);
         #endregion
     }
 
