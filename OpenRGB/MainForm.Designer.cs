@@ -31,27 +31,21 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.Main_tabControl = new System.Windows.Forms.TabControl();
             this.Start_tabPage = new System.Windows.Forms.TabPage();
+            this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.Devices_tabPage = new System.Windows.Forms.TabPage();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.deviceBox1 = new OpenRGB.deviceBox();
             this.Settings_tabPage = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.Help_tabPage = new System.Windows.Forms.TabPage();
-            this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
-            this.colorSelector1 = new OpenRGB.ColorSelector();
+            this.Add_deviceBox = new OpenRGB.deviceBox();
             this.Main_tabControl.SuspendLayout();
             this.Start_tabPage.SuspendLayout();
             this.Devices_tabPage.SuspendLayout();
             this.panel1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.Settings_tabPage.SuspendLayout();
-            this.flowLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // Main_tabControl
@@ -85,6 +79,13 @@
             this.Start_tabPage.Text = "Start";
             this.Start_tabPage.UseVisualStyleBackColor = true;
             // 
+            // flowLayoutPanel2
+            // 
+            this.flowLayoutPanel2.Location = new System.Drawing.Point(6, 5);
+            this.flowLayoutPanel2.Name = "flowLayoutPanel2";
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(894, 452);
+            this.flowLayoutPanel2.TabIndex = 0;
+            // 
             // Devices_tabPage
             // 
             this.Devices_tabPage.Controls.Add(this.panel1);
@@ -99,62 +100,12 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.comboBox2);
-            this.panel1.Controls.Add(this.comboBox1);
-            this.panel1.Controls.Add(this.label3);
-            this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Location = new System.Drawing.Point(231, 4);
             this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(664, 453);
             this.panel1.TabIndex = 1;
-            // 
-            // comboBox2
-            // 
-            this.comboBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(140, 86);
-            this.comboBox2.Margin = new System.Windows.Forms.Padding(4);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(268, 33);
-            this.comboBox2.TabIndex = 4;
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.comboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "OpenRGB Serial Device",
-            "Logitech Peripheral"});
-            this.comboBox1.Location = new System.Drawing.Point(140, 47);
-            this.comboBox1.Margin = new System.Windows.Forms.Padding(4);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(268, 33);
-            this.comboBox1.TabIndex = 3;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.label3.Location = new System.Drawing.Point(4, 90);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(97, 25);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "Argument";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.label2.Location = new System.Drawing.Point(4, 49);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(122, 25);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Device Type";
             // 
             // label1
             // 
@@ -169,24 +120,12 @@
             // 
             // flowLayoutPanel1
             // 
-            this.flowLayoutPanel1.Controls.Add(this.deviceBox1);
+            this.flowLayoutPanel1.Controls.Add(this.Add_deviceBox);
             this.flowLayoutPanel1.Location = new System.Drawing.Point(5, 5);
             this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(4);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(217, 452);
             this.flowLayoutPanel1.TabIndex = 0;
-            // 
-            // deviceBox1
-            // 
-            this.deviceBox1.BackColor = System.Drawing.SystemColors.Control;
-            this.deviceBox1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("deviceBox1.BackgroundImage")));
-            this.deviceBox1.Location = new System.Drawing.Point(7, 7);
-            this.deviceBox1.Margin = new System.Windows.Forms.Padding(7, 7, 7, 7);
-            this.deviceBox1.Name = "deviceBox1";
-            this.deviceBox1.PortName = null;
-            this.deviceBox1.Size = new System.Drawing.Size(200, 200);
-            this.deviceBox1.TabIndex = 0;
-            this.deviceBox1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.deviceBox1_MouseClick);
             // 
             // Settings_tabPage
             // 
@@ -225,22 +164,16 @@
             this.Help_tabPage.Text = "Help";
             this.Help_tabPage.UseVisualStyleBackColor = true;
             // 
-            // flowLayoutPanel2
+            // Add_deviceBox
             // 
-            this.flowLayoutPanel2.Controls.Add(this.colorSelector1);
-            this.flowLayoutPanel2.Location = new System.Drawing.Point(6, 5);
-            this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-            this.flowLayoutPanel2.Size = new System.Drawing.Size(894, 452);
-            this.flowLayoutPanel2.TabIndex = 0;
-            // 
-            // colorSelector1
-            // 
-            this.colorSelector1.Location = new System.Drawing.Point(4, 4);
-            this.colorSelector1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.colorSelector1.Name = "colorSelector1";
-            this.colorSelector1.SelectedColor = System.Drawing.Color.Empty;
-            this.colorSelector1.Size = new System.Drawing.Size(400, 246);
-            this.colorSelector1.TabIndex = 0;
+            this.Add_deviceBox.BackColor = System.Drawing.SystemColors.Control;
+            this.Add_deviceBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Add_deviceBox.BackgroundImage")));
+            this.Add_deviceBox.Location = new System.Drawing.Point(7, 7);
+            this.Add_deviceBox.Margin = new System.Windows.Forms.Padding(7, 7, 7, 7);
+            this.Add_deviceBox.Name = "Add_deviceBox";
+            this.Add_deviceBox.Size = new System.Drawing.Size(200, 200);
+            this.Add_deviceBox.TabIndex = 0;
+            this.Add_deviceBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.deviceBox1_MouseClick);
             // 
             // MainForm
             // 
@@ -260,7 +193,6 @@
             this.panel1.PerformLayout();
             this.flowLayoutPanel1.ResumeLayout(false);
             this.Settings_tabPage.ResumeLayout(false);
-            this.flowLayoutPanel2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -273,15 +205,10 @@
         private System.Windows.Forms.TabPage Help_tabPage;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
-        private deviceBox deviceBox1;
+        private deviceBox Add_deviceBox;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.ComboBox comboBox2;
-        private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
-        private ColorSelector colorSelector1;
     }
 }
 

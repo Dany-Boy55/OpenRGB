@@ -16,5 +16,10 @@ namespace OpenRGB
         {
             InitializeComponent();
         }
+
+        private void colorForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

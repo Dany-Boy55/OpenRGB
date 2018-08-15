@@ -36,17 +36,17 @@
             // 
             this.toolTip1.AutoPopDelay = 10000;
             this.toolTip1.InitialDelay = 500;
-            this.toolTip1.IsBalloon = false;
             this.toolTip1.ReshowDelay = 100;
-            this.toolTip1.SetToolTip(this, "Add a new RGB device");
             // 
             // deviceBox
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
+            this.Margin = new System.Windows.Forms.Padding(7, 7, 7, 7);
             this.Name = "deviceBox";
-            this.Size = new System.Drawing.Size(100, 100);
+            this.Size = new System.Drawing.Size(133, 123);
+            this.toolTip1.SetToolTip(this, "Add a new RGB device");
+            this.Load += new System.EventHandler(this.deviceBox_Load);
             this.MouseEnter += new System.EventHandler(this.deviceBox_MouseEnter);
             this.MouseLeave += new System.EventHandler(this.deviceBox_MouseLeave);
             this.ResumeLayout(false);

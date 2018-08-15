@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.26730.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenRGBWinApp", "OpenRGB\OpenRGBWinApp.csproj", "{66579E0C-3194-443F-9D72-7C695CE53954}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ByteSender", "ByteSender\ByteSender.csproj", "{46A3DDCD-DBB7-4FE1-A799-476E650EA545}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{66579E0C-3194-443F-9D72-7C695CE53954}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{66579E0C-3194-443F-9D72-7C695CE53954}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{66579E0C-3194-443F-9D72-7C695CE53954}.Release|Any CPU.Build.0 = Release|Any CPU
+		{46A3DDCD-DBB7-4FE1-A799-476E650EA545}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46A3DDCD-DBB7-4FE1-A799-476E650EA545}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46A3DDCD-DBB7-4FE1-A799-476E650EA545}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46A3DDCD-DBB7-4FE1-A799-476E650EA545}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

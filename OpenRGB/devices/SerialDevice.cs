@@ -36,13 +36,11 @@ namespace OpenRGB.Devices
         private static int instanceNumber;
         private string name;
         private int id;
-        private bool connected;
         #endregion
 
         #region encapsulated properties
         public string Name { get => name; }
         public int Id { get => id; }
-        public bool Connected { get => connected; }
         public static int InstanceNumber { get => instanceNumber; }
         #endregion
 
@@ -55,7 +53,7 @@ namespace OpenRGB.Devices
         public SerialController(SerialPort serialPort)
         {
             if (!PortNameValid(serialPort.PortName))
-                throw new RGBHardwareException();
+                throw new RGBHardwareException("Specified portname is invalid");
             this.port = serialPort;
             this.name = null;
             this.id = 0;
@@ -112,17 +110,7 @@ namespace OpenRGB.Devices
         {
             // length,crc8,data request
             byte[] dataOut = new byte[] { 0x01, 0x00, 0x00};
-            if (connected){
-                try
-                {
-                    port.Write(dataOut, 0, 3);
-                }
-                catch (Exception)
-                {
-
-                    throw;
-                }
-            }
+            
         }
 
         private byte CRC8(byte[] data, int length)
@@ -132,10 +120,7 @@ namespace OpenRGB.Devices
 
         public void ChangeName()
         {
-            if (!connected)
-                throw new RGBHardwareException();
-            else
-                throw new NotImplementedException();
+            throw new NotImplementedException();
         }
         
         /// <summary>

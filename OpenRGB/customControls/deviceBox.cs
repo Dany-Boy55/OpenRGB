@@ -8,16 +8,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using OpenRGB.Devices;
 
 namespace OpenRGB
 {
     public partial class deviceBox : UserControl
     {
-        private string portName;
+        protected string argument;
+        private Devices.DeviceType type;
 
         private Color highlightColor = Color.Aqua;
 
-        public string PortName { get => portName; set => portName = value; }
+
+        public string Argument { get => argument; set => argument = value; }
+        public DeviceType Type { get => type; set => type = value; }
 
         protected override void OnPaintBackground(PaintEventArgs e)
         {
@@ -42,6 +46,11 @@ namespace OpenRGB
         private void deviceBox_MouseLeave(object sender, EventArgs e)
         {
             this.BackColor = DefaultBackColor;
+        }
+
+        private void deviceBox_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
